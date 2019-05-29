@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Javascript bind()
+title: Tìm hiểu bind function trong javascript
 categories: [ui]
 tags: [javascript]
 ---

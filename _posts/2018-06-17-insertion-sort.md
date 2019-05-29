@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Insertion Sort
+title: Tìm hiểu thuật toán Insertion Sort
 categories: [algorithm]
 tags: [algorithm, sort]
 usejs: insertion-sort

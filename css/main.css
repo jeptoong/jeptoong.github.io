@@ -403,6 +403,7 @@ footer .theme-by {
 
 .post-preview .post-title {
   font-size: 1rem;
+  font-weight: 400;
   margin: 0;
   display: inline;
   text-transform: lowercase;

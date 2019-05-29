@@ -1,6 +1,6 @@
 ---
 layout: post
-title: FAQ - Maven
+title: Ghi chú - Maven
 categories: [faq]
 tags: [maven]
 ---

@@ -1,0 +1,548 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Beautiful Jekyll | MIT license | Copyright Dean Attali 2016 -->
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>JVM Garbage Collection</title>
+
+  <meta name="author" content="jeptoong" />
+
+  
+  <meta name="description" content="Automatic garbage collection is the process of looking at heap memory, identifying which objects are in use and which are not, and deleting the unused objects.">
+  
+
+  <link rel="alternate" type="application/rss+xml" title="NOTE - To Store Memory!" href="/feed.xml" />
+
+  
+
+  
+    
+      
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css" />
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    
+      <link rel="stylesheet" href="/css/bootstrap-social.css" />
+    
+      <link rel="stylesheet" href="/css/main.css" />
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700&amp;subset=vietnamese" />
+    
+  
+
+  
+
+  
+
+  
+
+    <!-- Facebook OpenGraph tags -->
+  
+
+  
+  <meta property="og:title" content="JVM Garbage Collection" />
+  
+
+   
+  <meta property="og:description" content="Automatic garbage collection is the process of looking at heap memory, identifying which objects are in use and which are not, and deleting the unused objects.">
+  
+
+
+  <meta property="og:type" content="website" />
+
+  
+  <meta property="og:url" content="http://localhost:4000/jvm-garbage-collection/" />
+  <link rel="canonical" href="http://localhost:4000/jvm-garbage-collection/" />
+  
+
+  
+  <meta property="og:image" content="http://localhost:4000/img/avatar-icon.jpg" />
+  
+
+
+  <!-- Twitter summary cards -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <meta name="twitter:creator" content="@" />
+
+  
+  <meta name="twitter:title" content="JVM Garbage Collection" />
+  
+
+  
+  <meta name="twitter:description" content="Automatic garbage collection is the process of looking at heap memory, identifying which objects are in use and which are not, and deleting the unused objects.">
+  
+
+  
+  <meta name="twitter:image" content="http://localhost:4000/img/avatar-icon.jpg" />
+  
+
+  
+
+</head>
+
+
+  <body>
+
+    
+  
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+        <a class="navbar-brand" href="http://localhost:4000">NOTE</a>
+      
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+      
+        
+          <li>
+            
+
+
+
+
+
+
+<a href="/categories">Categories</a>
+
+          </li>
+        
+        
+        
+          <li>
+            
+
+
+
+
+
+
+<a href="/aboutme">About Me</a>
+
+          </li>
+        
+        
+        
+          <li>
+            
+
+
+
+
+
+
+<a href="/resources">Resources</a>
+
+          </li>
+        
+        
+      </ul>
+    </div>
+
+	
+
+  </div>
+</nav>
+
+
+    <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-heading">
+            <h3 class="h-title">JVM Garbage Collection</h3>
+      
+		    
+			<h2 class="post-subheading">Automatic garbage collection is the process of looking at heap memory, identifying which objects are in use and which are not, and deleting the unused objects.</h2>
+			
+		  
+		  
+		  
+		  <div class="post-meta text-right">Posted on February 13, 2019</div>
+		  
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 bg-transparent">
+
+      
+
+      <article role="main" class="blog-post">
+        <p><strong>Java Runtime Enviroment</strong> consists of the Java Virtual Machine (JVM), Java platform core classes, and supporting Java platform libraries</p>
+
+<p><strong>Java Development Kit</strong> is a collection of tools for developing Java applications.</p>
+
+<p>The JDK and the JRE share the Java Application Programming Interfaces (Java API). The Java API is a collection of prepackaged libraries developers use to create Java applications. The Java API makes development easier by providing the tools to complete many common programming tasks including string manipulation, date/time processing, networking, and implementing data structures (e.g., lists, maps, stacks, and queues).</p>
+
+<p><strong>Java Virtual Machine</strong> is an abstract computing machine. The JVM is a program that looks like a machine to the programs written to execute in it. This way, Java programs are written to the same set of interfaces and libraries. Each JVM implementation for a specific operating system, translates the Java programming instructions into instructions and commands that run on the local operating system. This way, Java programs achieve platform independence.</p>
+
+<h4 id="describing-garbage-collection">Describing Garbage Collection</h4>
+
+<p><strong>Step 1: Marking</strong> identifies which pieces of memory are in use and which are not.</p>
+
+<div class="text-center overflow-auto img-70">
+    <img src="../img/posts/post-gc/gc-marking.png" alt="Marking Step" />
+</div>
+
+<p><strong>Step 2: Normal Deletion</strong> removes unreferenced objects leaving referenced objects and pointers to free space.</p>
+
+<div class="text-center overflow-auto img-70">
+    <img src="../img/posts/post-gc/gc-normal-deletion.png" alt="Normal Deletion" />
+</div>
+
+<p><strong>Step 2a: Deletion with Compacting</strong> you can also compact the remaining referenced objects, by moving referenced object together</p>
+
+<div class="text-center overflow-auto img-70">
+    <img src="../img/posts/post-gc/gc-compacting.png" alt="Deletion with Compacting" />
+</div>
+
+<h4 id="jvm-generations">JVM Generations</h4>
+
+<div class="text-center overflow-auto img-70">
+    <img src="../img/posts/post-gc/gc-jvm-generation.png" alt="JVM Generation" />
+</div>
+
+<p><strong>Young Generation</strong>  is where all new objects are allocated and aged. When the young generation fills up, this causes a <strong>minor garbage collection</strong>.</p>
+
+<p><strong>Stop the World Event</strong> - All minor garbage collections are “Stop the World” events. This means that all application threads are stopped until the operation completes. <strong>Minor garbage collections</strong> are <em>always</em> Stop the World events.</p>
+
+<p><strong>Old Generation</strong> is used to store long surviving objects. Eventually the old generation needs to be collected. This event is called a <strong>major garbage collection</strong>.</p>
+
+<p>Major garbage collection are also Stop the World events. The length of the Stop the World event for a major garbage collection is affected by the kind of garbage collector that is used for the old generation space.</p>
+
+<p><strong>Permanent Generation</strong> contains metadata required by the JVM to describe the classes and methods used in the application.</p>
+
+<h4 id="the-generational-garbage-collection-process">The Generational Garbage Collection Process</h4>
+
+<p>1: First, any new objects are allocated to the eden space. Both survivor spaces start out empty.</p>
+
+<div class="text-center overflow-auto img-70">
+    <img src="../img/posts/post-gc/gc-object-allocation.png" alt="Object Allocation" />
+</div>
+
+<p>2: When the eden space fills up, a minor garbage collection is triggered.</p>
+
+<div class="text-center overflow-auto img-70">
+    <img src="../img/posts/post-gc/gc-filling-eden-space.png" alt="Filling Eden Space" />
+</div>
+
+<p>3: Referenced objects are moved to the first survivor space. Unreferenced objects are deleted when the eden space is cleared.</p>
+
+<div class="text-center overflow-auto img-70">
+    <img src="../img/posts/post-gc/gc-copy-reference.png" alt="Copy Reference Objects" />
+</div>
+
+<p>4: At the next minor GC, the same thing happens for the eden space. Unreferenced objects are deleted and referenced objects are moved to a survivor space. However, in this case, they are moved to the second survivor space (S1). In addition, objects from the last minor GC on the first survivor space (S0) have their age incremented and get moved to S1. Once all surviving objects have been moved to S1, both S0 and eden are cleared. Notice we now have differently aged object in the survivor space.</p>
+
+<div class="text-center overflow-auto img-70">
+    <img src="../img/posts/post-gc/gc-object-aging.png" alt="Object Aging" />
+</div>
+
+<p>5: At the next minor GC, the same process repeats. However this time the survivor spaces switch. Referenced objects are moved to S0. Surviving objects are aged. Eden and S1 are cleared.</p>
+
+<div class="text-center overflow-auto img-70">
+    <img src="../img/posts/post-gc/gc-additional-aging.png" alt="Additional Aging" />
+</div>
+
+<p>6: This slide demonstrates promotion. After a minor GC, when aged objects reach a certain age threshold (8 in this example) they are promoted from young generation to old generation.</p>
+
+<div class="text-center overflow-auto img-70">
+    <img src="../img/posts/post-gc/gc-promotion.png" alt="Promotion" />
+</div>
+
+<p>7: As minor GCs continue to occure objects will continue to be promoted to the old generation space.</p>
+
+<div class="text-center overflow-auto img-70">
+    <img src="../img/posts/post-gc/gc-promotion-2.png" alt="Promotion" />
+</div>
+
+<p>8: So that pretty much covers the entire process with the young generation. Eventually, a major GC will be performed on the old generation which cleans up and compacts that space.</p>
+
+<div class="text-center overflow-auto img-70">
+    <img src="../img/posts/post-gc/gc-process-summary.png" alt="Process Summary" />
+</div>
+
+<h4 id="java-garbage-collectors">Java Garbage Collectors</h4>
+
+<table>
+  <thead>
+    <tr>
+      <th>Switch</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>-Xms</td>
+      <td>Sets the initial heap size for when the JVM starts.</td>
+    </tr>
+    <tr>
+      <td>-Xmx</td>
+      <td>Sets the maximum heap size.</td>
+    </tr>
+    <tr>
+      <td>-Xmn</td>
+      <td>Sets the size of the Young Generation.</td>
+    </tr>
+    <tr>
+      <td>-XX:PermSize</td>
+      <td>Sets the starting size of the Permanent Generation.</td>
+    </tr>
+    <tr>
+      <td>-XX:MaxPermSize</td>
+      <td>Sets the maximum size of the Permanent Generation</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong>The Serial GC</strong></p>
+
+<ul>
+  <li>Default for client style machines in Java SE 5 and 6</li>
+  <li>Both minor and major garbage collections are done serially (using a single virtual CPU)</li>
+  <li>This method moves older memory to the beginning of the heap so that new memory allocations are made into a single continuous chunk of memory at the end of the heap.</li>
+</ul>
+
+<p>-XX:+UseSerialGC</p>
+
+<p><strong><em>Usage Cases</em></strong></p>
+
+<p>The Serial GC is the garbage collector of choice for most applications that do not have low pause time requirements and run on client-style machines. It takes advantage of only a single virtual processor for garbage collection work (therefore, its name). Still, on today’s hardware, the Serial GC can efficiently manage a lot of non-trivial applications with a few hundred MBs of Java heap, with relatively short worst-case pauses (around a couple of seconds for full garbage collections).</p>
+
+<p>Another popular use for the Serial GC is in environments where a high number of JVMs are run on the same machine (in some cases, more JVMs than available processors!). In such environments when a JVM does a garbage collection it is better to use only one processor to minimize the interference on the remaining JVMs, even if the garbage collection might last longer. And the Serial GC fits this trade-off nicely.</p>
+
+<p>Finally, with the proliferation of embedded hardware with minimal memory and few cores, the Serial GC could make a comeback.</p>
+
+<p><strong>The Parallel GC</strong></p>
+
+<ul>
+  <li>Using multiple threads to perform the young genertion garbage collection</li>
+  <li>By default on a host with N CPUs, the parallel garbage collector uses N garbage collector threads in the collection.</li>
+  <li>The number of garbage collector threads can be controlled with command-line options: -XX:ParallelGCThreads=<em>desired number</em></li>
+</ul>
+
+<p>-XX:+UseParallelGC</p>
+
+<p><strong><em>Usage Cases</em></strong></p>
+
+<p>The Parallel collector is also called a throughput collector. Since it can use multilple CPUs to speed up application throughput. This collector should be used when a lot of work need to be done and long pauses are acceptable. For example, batch processing like printing reports or bills or performing a large number of database queries.</p>
+
+<p>-XX:+UseParallelOldGC</p>
+
+<ul>
+  <li>With the -XX:+UseParallelOldGC option, the GC is both a multithreaded young generation collector and multithreaded old generation collector.</li>
+</ul>
+
+<p><strong>The Concurrent Mark Sweep (CMS) Collector</strong></p>
+
+<ul>
+  <li>It attempts to minimize the pauses due to garbage collection by doing most of the garbage collection work concurrently with the application threads</li>
+  <li>Normally the concurrent low pause collector does not copy or compact the live objects. A garbage collection is done without moving the live objects.</li>
+  <li>If fragmentation becomes a problem, allocate a larger heap.</li>
+</ul>
+
+<p>Note: CMS collector on young generation uses the same algorithm as that of the parallel collector.</p>
+
+<p><strong><em>Usage Cases</em></strong></p>
+
+<p>The CMS collector should be used for applications that require low pause times and can share resources with the garbage collector. Examples include desktop UI application that respond to events, a webserver responding to a request or a database responding to queries.</p>
+
+<p>To enable the CMS Collector use: -XX:+UseConcMarkSweepGC</p>
+
+<p>and to set the number of threads use: -XX:ParallelCMSThreads=<em>number</em></p>
+
+<p><strong>The G1 Garbage Collector</strong></p>
+
+<p>The Garbage First or G1 garbage collector is available in Java 7 and is designed to be the long term replacement for the CMS collector. The G1 collector is a parallel, concurrent, and incrementally compacting low-pause garbage collector that has quite a different layout from the other garbage collectors described previously.</p>
+
+<p>To enable the G1 Collector use: -XX:+UseG1GC</p>
+
+      </article>
+
+      
+        <div class="blog-tags">
+          Tags:
+          
+          
+            <a href="/tags#java">java</a>
+          
+            <a href="/tags#garbage-collection">garbage-collection</a>
+          
+          
+        </div>
+      
+
+      
+        <!-- Check if any share-links are active -->
+
+
+
+
+<section id = "social-share-section">
+  <span class="sr-only">Share: </span>
+
+  
+  <!--- Share on Twitter -->
+    <a href="https://twitter.com/intent/tweet?text=JVM+Garbage+Collection+http://localhost:4000/jvm-garbage-collection/"
+      class="btn btn-social-icon btn-twitter" title="Share on Twitter">
+      <span class="fa fa-fw fa-twitter" aria-hidden="true"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  
+
+  
+  <!--- Share on Facebook -->
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/jvm-garbage-collection/"
+      class="btn btn-social-icon btn-facebook" title="Share on Facebook">
+      <span class="fa fa-fw fa-facebook" aria-hidden="true"></span>
+      <span class="sr-only">Facebook</span>
+    </a>
+  
+
+  
+
+  
+  <!--- Share on LinkedIn -->
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/jvm-garbage-collection/"
+      class="btn btn-social-icon btn-linkedin" title="Share on LinkedIn">
+      <span class="fa fa-fw fa-linkedin" aria-hidden="true"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  
+
+</section>
+
+
+
+      
+
+      <ul class="pager blog-pager">
+        
+        <li class="previous">
+          <a href="/java-multithreaded/" data-toggle="tooltip" data-placement="top" title="Giới thiệu sơ lược Multithreaded trong Java">&larr; Previous Post</a>
+        </li>
+        
+        
+        <li class="next">
+          <a href="/inner-class/" data-toggle="tooltip" data-placement="top" title="Inner Class">Next Post &rarr;</a>
+        </li>
+        
+      </ul>
+
+      
+        <div class="disqus-comments">
+          
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+
+    <footer>
+  <div class="container beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links"><li><a href="/feed.xml" title="RSS"><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only">RSS</span>
+              </a>
+            </li></ul>
+      <p class="copyright text-muted">
+      jeptoong
+      &nbsp;&bull;&nbsp;
+      2020
+
+      <!-- 
+      &nbsp;&bull;&nbsp;
+      <a href="http://localhost:4000">jeptoong.github.io</a>
+       -->
+
+      
+      </p>
+          <!-- Please don't remove this, keep my open source work credited :) -->
+    <p class="theme-by text-muted">
+      Theme by
+      <a href="http://deanattali.com/beautiful-jekyll/">beautiful-jekyll</a>
+    </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  
+    
+
+
+
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script>
+      	if (typeof jQuery == 'undefined') {
+      	  document.write('<script src="/js/jquery-1.11.2.min.js"></scr' + 'ipt>');
+      	}
+      </script>
+    
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+	<script src="/js/bootstrap.min.js"></script>
+    
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+	<script src="/js/main.js"></script>
+    
+  
+
+
+
+
+  
+  </body>
+</html>

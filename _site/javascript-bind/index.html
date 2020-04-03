@@ -1,0 +1,570 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Beautiful Jekyll | MIT license | Copyright Dean Attali 2016 -->
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Tìm hiểu bind function trong javascript</title>
+
+  <meta name="author" content="jeptoong" />
+
+  
+
+  <link rel="alternate" type="application/rss+xml" title="NOTE - To Store Memory!" href="/feed.xml" />
+
+  
+
+  
+    
+      
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css" />
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    
+      <link rel="stylesheet" href="/css/bootstrap-social.css" />
+    
+      <link rel="stylesheet" href="/css/main.css" />
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700&amp;subset=vietnamese" />
+    
+  
+
+  
+
+  
+
+  
+
+    <!-- Facebook OpenGraph tags -->
+  
+
+  
+  <meta property="og:title" content="Tìm hiểu bind function trong javascript" />
+  
+
+   
+  <meta property="og:description" content="Khi code javascript chúng ta sẽ gặp phải trường hợp cần giữ lại “this” trong function khác, nghiều người gán lại this bằng các biến self, this, cách làm này không có gì sai nhưng chúng ta có một cách tốt hơn, chuyên dụng hơn. 1 2 3 4 5...">
+  
+
+
+  <meta property="og:type" content="website" />
+
+  
+  <meta property="og:url" content="http://localhost:4000/javascript-bind/" />
+  <link rel="canonical" href="http://localhost:4000/javascript-bind/" />
+  
+
+  
+  <meta property="og:image" content="http://localhost:4000/img/avatar-icon.jpg" />
+  
+
+
+  <!-- Twitter summary cards -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <meta name="twitter:creator" content="@" />
+
+  
+  <meta name="twitter:title" content="Tìm hiểu bind function trong javascript" />
+  
+
+  
+  <meta name="twitter:description" content="Khi code javascript chúng ta sẽ gặp phải trường hợp cần giữ lại “this” trong function khác, nghiều người gán lại this bằng các biến self, this, cách làm này không có gì sai nhưng chúng ta có một cách tốt hơn, chuyên dụng hơn. 1 2 3 4 5...">
+  
+
+  
+  <meta name="twitter:image" content="http://localhost:4000/img/avatar-icon.jpg" />
+  
+
+  
+
+</head>
+
+
+  <body>
+
+    
+  
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+        <a class="navbar-brand" href="http://localhost:4000">NOTE</a>
+      
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+      
+        
+          <li>
+            
+
+
+
+
+
+
+<a href="/categories">Categories</a>
+
+          </li>
+        
+        
+        
+          <li>
+            
+
+
+
+
+
+
+<a href="/aboutme">About Me</a>
+
+          </li>
+        
+        
+        
+          <li>
+            
+
+
+
+
+
+
+<a href="/resources">Resources</a>
+
+          </li>
+        
+        
+      </ul>
+    </div>
+
+	
+
+  </div>
+</nav>
+
+
+    <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-heading">
+            <h3 class="h-title">Tìm hiểu bind function trong javascript</h3>
+      
+		  
+		  
+		  <div class="post-meta text-right">Posted on June 16, 2018</div>
+		  
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 bg-transparent">
+
+      
+
+      <article role="main" class="blog-post">
+        <p>Khi code javascript chúng ta sẽ gặp phải trường hợp cần giữ lại <em>“this”</em> trong function khác, nghiều người gán lại <code class="highlighter-rouge">this</code> bằng các biến <code class="highlighter-rouge">self</code>, <code class="highlighter-rouge">this</code>, cách làm này không có gì sai nhưng chúng ta có một cách tốt hơn, chuyên dụng hơn.</p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+27
+28
+</pre></td><td class="code"><pre><span class="kd">var</span> <span class="nx">MyJob</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">oneFunction</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'One Function'</span><span class="p">);</span>
+        <span class="c1">// todo something.</span>
+    <span class="p">},</span>
+
+    <span class="na">twoFunction</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="s1">'Two Function'</span><span class="p">);</span>
+        <span class="c1">// todo something.</span>
+    <span class="p">},</span>
+
+    <span class="na">getAsyncData</span><span class="p">:</span> <span class="kd">function</span><span class="p">(</span><span class="nx">cb</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="nx">cb</span> <span class="o">===</span> <span class="s1">'function'</span><span class="p">)</span> <span class="p">{</span>
+            <span class="nx">cb</span><span class="p">();</span>
+        <span class="p">}</span>
+    <span class="p">},</span>
+
+    <span class="na">render</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="kd">var</span> <span class="nb">self</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">getAsyncData</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="nb">self</span><span class="p">.</span><span class="nx">oneFunction</span><span class="p">();</span>
+            <span class="nb">self</span><span class="p">.</span><span class="nx">twoFunction</span><span class="p">();</span>
+        <span class="p">});</span>
+    <span class="p">}</span>
+<span class="p">}</span>
+
+<span class="c1">// call render</span>
+<span class="nx">MyJob</span><span class="p">.</span><span class="nx">render</span><span class="p">();</span></pre></td></tr></tbody></table></code></pre></figure>
+
+<p>Nếu trong hàm render trên, chúng ta sử dụng this.oneFunction() thì sẽ gặp lỗi.</p>
+
+<div class="highlighter-rouge"><div class="highlight"><pre class="highlight"><code>Uncaught TypeError: this.oneFunction is not a function
+</code></pre></div></div>
+
+<p>Chúng ta cần giữ lại context của đối tượng <code class="highlighter-rouge">MyJob</code> khi callback function được gọi, gọi <code class="highlighter-rouge">self.oneFunction()</code> cho phép chúng ta giữ lại context để callback function chạy đúng. Tuy nhiên, chúng ta có thể làm gọn hơn bằng cách sử dụng <code class="highlighter-rouge">Function.prototype.bind()</code></p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="code"><pre><span class="kd">var</span> <span class="nx">MyJob</span> <span class="o">=</span> <span class="p">{</span>
+
+    <span class="p">...</span>
+
+    <span class="na">render</span><span class="p">:</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">this</span><span class="p">.</span><span class="nx">getAsyncData</span><span class="p">(</span><span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">oneFunction</span><span class="p">();</span>
+            <span class="k">this</span><span class="p">.</span><span class="nx">twoFunction</span><span class="p">();</span>
+        <span class="p">}.</span><span class="nx">bind</span><span class="p">(</span><span class="k">this</span><span class="p">));</span>
+    <span class="p">}</span>
+<span class="p">}</span></pre></td></tr></tbody></table></code></pre></figure>
+
+<h3 id="chúng-ta-đã-làm-gì">Chúng ta đã làm gì?</h3>
+<p><code class="highlighter-rouge">.bind()</code> đơn giản là một hàm, khi gọi, nó yêu cầu cung cấp tham số <code class="highlighter-rouge">this</code>. Khi chúng ta truyền tham số <code class="highlighter-rouge">this</code> (đây là context của MyJob) vào hàm <code class="highlighter-rouge">.bind()</code>, thì khi callback function chạy, <code class="highlighter-rouge">this</code> của nó sẽ là references của <code class="highlighter-rouge">MyJob</code></p>
+
+<p>Nếu bạn quan tâm function <code class="highlighter-rouge">Function.prototype.bind()</code> trong như thế nào, hoạt động ra sao, thì sau đây là một mô tả đơn giản của nó:</p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="code"><pre><span class="nb">Function</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">bind</span> <span class="o">=</span> <span class="kd">function</span><span class="p">(</span><span class="nx">scope</span><span class="p">)</span> <span class="p">{</span>
+    <span class="kd">var</span> <span class="nx">fn</span> <span class="o">=</span> <span class="k">this</span><span class="p">;</span>
+    <span class="k">return</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+        <span class="k">return</span> <span class="nx">fn</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="nx">scope</span><span class="p">);</span>
+    <span class="p">}</span>
+<span class="p">};</span></pre></td></tr></tbody></table></code></pre></figure>
+
+<p>Và đây là ví dụ đơn giản:</p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+</pre></td><td class="code"><pre><span class="kd">var</span> <span class="nx">foo</span> <span class="o">=</span> <span class="p">{</span>
+    <span class="na">x</span><span class="p">:</span> <span class="mi">3</span>
+<span class="p">}</span>
+
+<span class="kd">var</span> <span class="nx">bar</span> <span class="o">=</span> <span class="kd">function</span><span class="p">()</span> <span class="p">{</span>
+    <span class="nx">console</span><span class="p">.</span><span class="nx">log</span><span class="p">(</span><span class="k">this</span><span class="p">.</span><span class="nx">x</span><span class="p">);</span>
+<span class="p">}</span>
+
+<span class="nx">bar</span><span class="p">();</span> <span class="c1">// undefined</span>
+
+<span class="kd">var</span> <span class="nx">barBind</span> <span class="o">=</span> <span class="nx">bar</span><span class="p">.</span><span class="nx">bind</span><span class="p">(</span><span class="nx">foo</span><span class="p">);</span>
+
+<span class="nx">barBind</span><span class="p">();</span> <span class="c1">// 3</span></pre></td></tr></tbody></table></code></pre></figure>
+
+<h3 id="browser-support">Browser Support</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Browser</th>
+      <th>Version Support</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>Chrome</td>
+      <td>7</td>
+    </tr>
+    <tr>
+      <td>Firefox (Gecko)</td>
+      <td>4.0 (2)</td>
+    </tr>
+    <tr>
+      <td>Internet Explorer</td>
+      <td>9</td>
+    </tr>
+    <tr>
+      <td>Opera</td>
+      <td>11.60</td>
+    </tr>
+    <tr>
+      <td>Safari</td>
+      <td>5.1.4</td>
+    </tr>
+  </tbody>
+</table>
+
+<p>Đối với các trình duyệt có version thấp hơn không hỗ trợ, ta có thể tự implement như sau</p>
+
+<figure class="highlight"><pre><code class="language-js" data-lang="js"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+</pre></td><td class="code"><pre><span class="k">if</span> <span class="p">(</span><span class="o">!</span><span class="nb">Function</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">bind</span><span class="p">)</span> <span class="p">{</span>
+    <span class="nb">Function</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">bind</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">(</span><span class="nx">oThis</span><span class="p">)</span> <span class="p">{</span>
+        <span class="k">if</span> <span class="p">(</span><span class="k">typeof</span> <span class="k">this</span> <span class="o">!==</span> <span class="s2">"function"</span><span class="p">)</span> <span class="p">{</span>
+            <span class="c1">// closest thing possible to the ECMAScript 5 internal IsCallable function</span>
+            <span class="k">throw</span> <span class="k">new</span> <span class="nx">TypeError</span><span class="p">(</span><span class="s2">"Function.prototype.bind - what is trying to be bound is not callable"</span><span class="p">);</span>
+        <span class="p">}</span>
+
+        <span class="kd">var</span> <span class="nx">aArgs</span> <span class="o">=</span> <span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="kr">arguments</span><span class="p">,</span> <span class="mi">1</span><span class="p">),</span>
+            <span class="nx">fToBind</span> <span class="o">=</span> <span class="k">this</span><span class="p">,</span>
+            <span class="nx">fNOP</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{},</span>
+            <span class="nx">fBound</span> <span class="o">=</span> <span class="kd">function</span> <span class="p">()</span> <span class="p">{</span>
+                <span class="k">return</span> <span class="nx">fToBind</span><span class="p">.</span><span class="nx">apply</span><span class="p">(</span><span class="k">this</span> <span class="k">instanceof</span> <span class="nx">fNOP</span> <span class="o">&amp;&amp;</span> <span class="nx">oThis</span> <span class="p">?</span> <span class="k">this</span> <span class="p">:</span> <span class="nx">oThis</span><span class="p">,</span> <span class="nx">aArgs</span><span class="p">.</span><span class="nx">concat</span><span class="p">(</span><span class="nb">Array</span><span class="p">.</span><span class="nx">prototype</span><span class="p">.</span><span class="nx">slice</span><span class="p">.</span><span class="nx">call</span><span class="p">(</span><span class="kr">arguments</span><span class="p">)));</span>
+            <span class="p">};</span>
+
+        <span class="nx">fNOP</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="k">this</span><span class="p">.</span><span class="nx">prototype</span><span class="p">;</span>
+        <span class="nx">fBound</span><span class="p">.</span><span class="nx">prototype</span> <span class="o">=</span> <span class="k">new</span> <span class="nx">fNOP</span><span class="p">();</span>
+
+        <span class="k">return</span> <span class="nx">fBound</span><span class="p">;</span>
+    <span class="p">};</span>
+<span class="p">}</span></pre></td></tr></tbody></table></code></pre></figure>
+
+<hr />
+
+<p><strong>Tham khảo</strong></p>
+<ul>
+  <li><a href="https://www.smashingmagazine.com/2014/01/understanding-javascript-function-prototype-bind/" target="_blank">www.smashingmagazine.com</a></li>
+</ul>
+
+      </article>
+
+      
+        <div class="blog-tags">
+          Tags:
+          
+          
+            <a href="/tags#javascript">javascript</a>
+          
+          
+        </div>
+      
+
+      
+        <!-- Check if any share-links are active -->
+
+
+
+
+<section id = "social-share-section">
+  <span class="sr-only">Share: </span>
+
+  
+  <!--- Share on Twitter -->
+    <a href="https://twitter.com/intent/tweet?text=T%C3%ACm+hi%E1%BB%83u+bind+function+trong+javascript+http://localhost:4000/javascript-bind/"
+      class="btn btn-social-icon btn-twitter" title="Share on Twitter">
+      <span class="fa fa-fw fa-twitter" aria-hidden="true"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  
+
+  
+  <!--- Share on Facebook -->
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/javascript-bind/"
+      class="btn btn-social-icon btn-facebook" title="Share on Facebook">
+      <span class="fa fa-fw fa-facebook" aria-hidden="true"></span>
+      <span class="sr-only">Facebook</span>
+    </a>
+  
+
+  
+
+  
+  <!--- Share on LinkedIn -->
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/javascript-bind/"
+      class="btn btn-social-icon btn-linkedin" title="Share on LinkedIn">
+      <span class="fa fa-fw fa-linkedin" aria-hidden="true"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  
+
+</section>
+
+
+
+      
+
+      <ul class="pager blog-pager">
+        
+        <li class="previous">
+          <a href="/github-page-va-jekyll/" data-toggle="tooltip" data-placement="top" title="Github Page và Jekyll">&larr; Previous Post</a>
+        </li>
+        
+        
+        <li class="next">
+          <a href="/insertion-sort/" data-toggle="tooltip" data-placement="top" title="Tìm hiểu thuật toán Insertion Sort">Next Post &rarr;</a>
+        </li>
+        
+      </ul>
+
+      
+        <div class="disqus-comments">
+          
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+
+    <footer>
+  <div class="container beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links"><li><a href="/feed.xml" title="RSS"><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only">RSS</span>
+              </a>
+            </li></ul>
+      <p class="copyright text-muted">
+      jeptoong
+      &nbsp;&bull;&nbsp;
+      2020
+
+      <!-- 
+      &nbsp;&bull;&nbsp;
+      <a href="http://localhost:4000">jeptoong.github.io</a>
+       -->
+
+      
+      </p>
+          <!-- Please don't remove this, keep my open source work credited :) -->
+    <p class="theme-by text-muted">
+      Theme by
+      <a href="http://deanattali.com/beautiful-jekyll/">beautiful-jekyll</a>
+    </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  
+    
+
+
+
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script>
+      	if (typeof jQuery == 'undefined') {
+      	  document.write('<script src="/js/jquery-1.11.2.min.js"></scr' + 'ipt>');
+      	}
+      </script>
+    
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+	<script src="/js/bootstrap.min.js"></script>
+    
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+	<script src="/js/main.js"></script>
+    
+  
+
+
+
+
+  
+  </body>
+</html>

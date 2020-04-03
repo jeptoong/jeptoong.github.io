@@ -1,0 +1,568 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Beautiful Jekyll | MIT license | Copyright Dean Attali 2016 -->
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>em, rem, vh, vw trong css</title>
+
+  <meta name="author" content="jeptoong" />
+
+  
+  <meta name="description" content="Một số unit trong css">
+  
+
+  <link rel="alternate" type="application/rss+xml" title="NOTE - To Store Memory!" href="/feed.xml" />
+
+  
+
+  
+    
+      
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css" />
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    
+      <link rel="stylesheet" href="/css/bootstrap-social.css" />
+    
+      <link rel="stylesheet" href="/css/main.css" />
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700&amp;subset=vietnamese" />
+    
+  
+
+  
+
+  
+
+  
+
+    <!-- Facebook OpenGraph tags -->
+  
+
+  
+  <meta property="og:title" content="em, rem, vh, vw trong css" />
+  
+
+   
+  <meta property="og:description" content="Một số unit trong css">
+  
+
+
+  <meta property="og:type" content="website" />
+
+  
+  <meta property="og:url" content="http://localhost:4000/em-rem-vh-vw-trong-css/" />
+  <link rel="canonical" href="http://localhost:4000/em-rem-vh-vw-trong-css/" />
+  
+
+  
+  <meta property="og:image" content="http://localhost:4000/img/avatar-icon.jpg" />
+  
+
+
+  <!-- Twitter summary cards -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <meta name="twitter:creator" content="@" />
+
+  
+  <meta name="twitter:title" content="em, rem, vh, vw trong css" />
+  
+
+  
+  <meta name="twitter:description" content="Một số unit trong css">
+  
+
+  
+  <meta name="twitter:image" content="http://localhost:4000/img/avatar-icon.jpg" />
+  
+
+  
+
+</head>
+
+
+  <body>
+
+    
+  
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+        <a class="navbar-brand" href="http://localhost:4000">NOTE</a>
+      
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+      
+        
+          <li>
+            
+
+
+
+
+
+
+<a href="/categories">Categories</a>
+
+          </li>
+        
+        
+        
+          <li>
+            
+
+
+
+
+
+
+<a href="/aboutme">About Me</a>
+
+          </li>
+        
+        
+        
+          <li>
+            
+
+
+
+
+
+
+<a href="/resources">Resources</a>
+
+          </li>
+        
+        
+      </ul>
+    </div>
+
+	
+
+  </div>
+</nav>
+
+
+    <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-heading">
+            <h3 class="h-title">em, rem, vh, vw trong css</h3>
+      
+		    
+			<h2 class="post-subheading">Một số unit trong css</h2>
+			
+		  
+		  
+		  
+		  <div class="post-meta text-right">Posted on May 6, 2018</div>
+		  
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 bg-transparent">
+
+      
+
+      <article role="main" class="blog-post">
+        <p>Trong CSS có khá nhiều unit để biểu thị kích thước, nhưng tóm lại, chúng chỉ được phân thành 2 loại là: <strong>Absolute</strong> (tuyệt đối) và <strong>Relative</strong> (tương đối)</p>
+
+<h3 id="absolute">Absolute</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Unit</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>cm</td>
+      <td>centimeters</td>
+    </tr>
+    <tr>
+      <td>mm</td>
+      <td>millimeters</td>
+    </tr>
+    <tr>
+      <td>in</td>
+      <td>inches (1in = 96px = 2.54cm)</td>
+    </tr>
+    <tr>
+      <td>px</td>
+      <td>pixels (1px = 1/96th of 1in)</td>
+    </tr>
+    <tr>
+      <td>pt</td>
+      <td>points (1pt = 1/72 of 1in)</td>
+    </tr>
+    <tr>
+      <td>pc</td>
+      <td>picas (1pc = 12pt)</td>
+    </tr>
+  </tbody>
+</table>
+
+<h3 id="relative">Relative</h3>
+
+<table>
+  <thead>
+    <tr>
+      <th>Unit</th>
+      <th>Description</th>
+    </tr>
+  </thead>
+  <tbody>
+    <tr>
+      <td>em</td>
+      <td>Relative to the font-size of the element (2em means 2 times the size of the current font)</td>
+    </tr>
+    <tr>
+      <td>ex</td>
+      <td>Relative to the x-height of the current font (rarely used)</td>
+    </tr>
+    <tr>
+      <td>ch</td>
+      <td>Relative to width of the “0” (zero)</td>
+    </tr>
+    <tr>
+      <td>rem</td>
+      <td>Relative to font-size of the root element</td>
+    </tr>
+    <tr>
+      <td>vw</td>
+      <td>Relative to 1% of the width of the viewport*</td>
+    </tr>
+    <tr>
+      <td>vh</td>
+      <td>Relative to 1% of the height of the viewport*</td>
+    </tr>
+    <tr>
+      <td>vmin</td>
+      <td>Relative to 1% of viewport’s* smaller dimension</td>
+    </tr>
+    <tr>
+      <td>vmax*</td>
+      <td>Relative to 1% of viewport’s* larger dimension</td>
+    </tr>
+    <tr>
+      <td>%</td>
+      <td>Relative to the parent element</td>
+    </tr>
+  </tbody>
+</table>
+
+<p><strong><code class="highlighter-rouge">*</code>viewport</strong>: là kích thước cửa sổ trình duyệt<br />
+<strong><code class="highlighter-rouge">*</code>vmax</strong>: không được IE hỗ trợ</p>
+
+<p>Khi các thiết bị smartphone càng ngày càng phổ biến, thì các đơn vị absolute như <code class="highlighter-rouge">px</code> nên hạn chế sử dụng,
+thay vào đó ta nên dùng các đơn vị relative để quá trình tinh chỉnh kích thước trên các thiết bị có màn hình nhỏ trở nên đơn giản hơn.</p>
+
+<ul>
+  <li><code class="highlighter-rouge">vh</code>: (n)vh bằng n% so với height màn hình</li>
+  <li><code class="highlighter-rouge">vw</code>: (n)vw bằng n% so với width màn hình</li>
+  <li><code class="highlighter-rouge">%</code>: (n)% bằng n% so với kích thước element cha</li>
+  <li><code class="highlighter-rouge">em</code>: (n)em bằng n lần font-size của element cha</li>
+  <li><code class="highlighter-rouge">rem</code>: (n)rem bằng n lần font-size của root element (<em>html</em> hoặc <em>body</em>)</li>
+</ul>
+
+<p>Trên đây là các đơn vị thường được sử dụng, do tính đơn giản và linh hoạt của chúng.</p>
+
+<h4 id="font-size">font-size</h4>
+
+<p>Hầu hết các trình duyệt hiện nay điều mặc định font-size là 16px.
+Nên chúng ta có thể set font-size cho body là <code class="highlighter-rouge">%</code>, hoặc set luôn là <code class="highlighter-rouge">px</code>.
+Sau đó sử dụng <code class="highlighter-rouge">em</code>, <code class="highlighter-rouge">rem</code> cho các element con.</p>
+
+<p><strong>Ex:</strong></p>
+
+<figure class="highlight"><pre><code class="language-html" data-lang="html"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="code"><pre><span class="nt">&lt;body&gt;</span>
+  <span class="nt">&lt;div</span> <span class="na">class=</span><span class="s">"post"</span><span class="nt">&gt;</span>
+    <span class="nt">&lt;h3</span> <span class="na">class=</span><span class="s">"heading"</span><span class="nt">&gt;</span>This is heading<span class="nt">&lt;/div&gt;</span>
+    <span class="nt">&lt;p&gt;</span>This is content<span class="nt">&lt;/p&gt;</span>
+  <span class="nt">&lt;/div&gt;</span>
+<span class="nt">&lt;/body&gt;</span></pre></td></tr></tbody></table></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-css" data-lang="css"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="code"><pre><span class="nt">body</span> <span class="p">{</span>
+  <span class="nl">font-size</span><span class="p">:</span> <span class="m">16px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.post</span> <span class="p">{</span>
+  <span class="nl">font-size</span><span class="p">:</span> <span class="m">1.5rem</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.heading</span> <span class="p">{</span>
+  <span class="nl">font-size</span><span class="p">:</span> <span class="m">2rem</span><span class="p">;</span>
+<span class="p">}</span></pre></td></tr></tbody></table></code></pre></figure>
+
+<p>Khi đó <code class="highlighter-rouge">&lt;h3 class="heading"&gt;This is heading&lt;/div&gt;</code> sẽ có font-size bằng <code class="highlighter-rouge">16x2 = 32px</code>, <code class="highlighter-rouge">&lt;p&gt;This is content&lt;/p&gt;</code> sẽ có font-size bằng <code class="highlighter-rouge">16x1.5 = 24px</code> <em>(<code class="highlighter-rouge">&lt;p&gt;</code> sẽ kế thừa css của element cha)</em>.</p>
+
+<p><strong><em>Chú ý:</em></strong> Với trường hợp <code class="highlighter-rouge">em</code>, kích thước nó dựa vào element cha nên ta sẽ có:</p>
+
+<figure class="highlight"><pre><code class="language-css" data-lang="css"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+</pre></td><td class="code"><pre><span class="nt">body</span> <span class="p">{</span>
+  <span class="nl">font-size</span><span class="p">:</span> <span class="m">16px</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.post</span> <span class="p">{</span>
+  <span class="nl">font-size</span><span class="p">:</span> <span class="m">1.5em</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.heading</span> <span class="p">{</span>
+  <span class="nl">font-size</span><span class="p">:</span> <span class="m">2em</span><span class="p">;</span>
+<span class="p">}</span></pre></td></tr></tbody></table></code></pre></figure>
+
+<p><code class="highlighter-rouge">&lt;p&gt;This is content&lt;/p&gt;</code> vẫn sẽ có font-size bằng <code class="highlighter-rouge">24px</code>, nhưng đối với <code class="highlighter-rouge">&lt;h3 class="heading"&gt;This is heading&lt;/div&gt;</code> sẽ có font-size bằng <code class="highlighter-rouge">48px</code>, do element <code class="highlighter-rouge">.post</code> có font-size bằng <code class="highlighter-rouge">24px</code>,
+nên ta cần chú ý tính toán trong trường hợp này.</p>
+
+<h4 id="width-height-của-element">width, height của element</h4>
+
+<p>CSS Width, height cho các element chúng ta chỉ cần sử dụng <code class="highlighter-rouge">%</code> hoặc <code class="highlighter-rouge">vw</code>, <code class="highlighter-rouge">vh</code> là OK.
+Việc chúng ta cần làm là code cẩn thận để không element nào bị thiếu end tag là được.</p>
+
+<p><strong><em>Chú ý:</em></strong></p>
+<ul>
+  <li>Chúng ta cũng có thể dùng <code class="highlighter-rouge">em</code>, <code class="highlighter-rouge">rem</code> cho width, height.</li>
+  <li>Không phải lúc nào chúng ta cũng dùng đơn vị relative, một số trượng hợp như padding, margin, border-width, … chúng ta vẫn nên dùng <code class="highlighter-rouge">px</code> để đảm bảo chúng không bị thay đổi khi kích thước màn hình thay đổi.</li>
+</ul>
+
+<h4 id="màn-hình-nhỏ-smartphone-etc">Màn hình nhỏ (smartphone, etc…)</h4>
+
+<p>Như ví dụ trên chúng ta chỉ cần thay font-size cho tag <code class="highlighter-rouge">body</code>. Việc chỉnh sửa ít hơn và đơn giản hơn.</p>
+
+<figure class="highlight"><pre><code class="language-css" data-lang="css"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+</pre></td><td class="code"><pre><span class="k">@media</span> <span class="n">only</span> <span class="n">screen</span> <span class="n">and</span> <span class="p">(</span><span class="n">max-width</span><span class="p">:</span> <span class="m">768px</span><span class="p">)</span> <span class="p">{</span>
+  <span class="nt">body</span> <span class="p">{</span>
+    <span class="nl">font-size</span><span class="p">:</span> <span class="m">26px</span><span class="p">;</span> <span class="c">/*Change font-size cho màn hình nhỏ*/</span>
+  <span class="p">}</span>
+<span class="p">}</span>
+<span class="nc">.post</span> <span class="p">{</span>
+  <span class="nl">font-size</span><span class="p">:</span> <span class="m">1.5rem</span><span class="p">;</span>
+<span class="p">}</span>
+<span class="nc">.heading</span> <span class="p">{</span>
+  <span class="nl">font-size</span><span class="p">:</span> <span class="m">2rem</span><span class="p">;</span>
+<span class="p">}</span></pre></td></tr></tbody></table></code></pre></figure>
+
+<hr />
+
+<p><strong>Tham khảo</strong></p>
+<ul>
+  <li><a href="https://www.w3schools.com/cssref/css_units.asp" target="_blank">CSS Units</a></li>
+</ul>
+
+      </article>
+
+      
+        <div class="blog-tags">
+          Tags:
+          
+          
+            <a href="/tags#css">css</a>
+          
+          
+        </div>
+      
+
+      
+        <!-- Check if any share-links are active -->
+
+
+
+
+<section id = "social-share-section">
+  <span class="sr-only">Share: </span>
+
+  
+  <!--- Share on Twitter -->
+    <a href="https://twitter.com/intent/tweet?text=em%2C+rem%2C+vh%2C+vw+trong+css+http://localhost:4000/em-rem-vh-vw-trong-css/"
+      class="btn btn-social-icon btn-twitter" title="Share on Twitter">
+      <span class="fa fa-fw fa-twitter" aria-hidden="true"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  
+
+  
+  <!--- Share on Facebook -->
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/em-rem-vh-vw-trong-css/"
+      class="btn btn-social-icon btn-facebook" title="Share on Facebook">
+      <span class="fa fa-fw fa-facebook" aria-hidden="true"></span>
+      <span class="sr-only">Facebook</span>
+    </a>
+  
+
+  
+
+  
+  <!--- Share on LinkedIn -->
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/em-rem-vh-vw-trong-css/"
+      class="btn btn-social-icon btn-linkedin" title="Share on LinkedIn">
+      <span class="fa fa-fw fa-linkedin" aria-hidden="true"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  
+
+</section>
+
+
+
+      
+
+      <ul class="pager blog-pager">
+        
+        
+        <li class="next">
+          <a href="/github-page-va-jekyll/" data-toggle="tooltip" data-placement="top" title="Github Page và Jekyll">Next Post &rarr;</a>
+        </li>
+        
+      </ul>
+
+      
+        <div class="disqus-comments">
+          
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+
+    <footer>
+  <div class="container beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links"><li><a href="/feed.xml" title="RSS"><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only">RSS</span>
+              </a>
+            </li></ul>
+      <p class="copyright text-muted">
+      jeptoong
+      &nbsp;&bull;&nbsp;
+      2020
+
+      <!-- 
+      &nbsp;&bull;&nbsp;
+      <a href="http://localhost:4000">jeptoong.github.io</a>
+       -->
+
+      
+      </p>
+          <!-- Please don't remove this, keep my open source work credited :) -->
+    <p class="theme-by text-muted">
+      Theme by
+      <a href="http://deanattali.com/beautiful-jekyll/">beautiful-jekyll</a>
+    </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  
+    
+
+
+
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script>
+      	if (typeof jQuery == 'undefined') {
+      	  document.write('<script src="/js/jquery-1.11.2.min.js"></scr' + 'ipt>');
+      	}
+      </script>
+    
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+	<script src="/js/bootstrap.min.js"></script>
+    
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+	<script src="/js/main.js"></script>
+    
+  
+
+
+
+
+  
+  </body>
+</html>

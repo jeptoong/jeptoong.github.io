@@ -1,0 +1,422 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Beautiful Jekyll | MIT license | Copyright Dean Attali 2016 -->
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Java 8 - Lambda Comparator</title>
+
+  <meta name="author" content="jeptoong" />
+
+  
+
+  <link rel="alternate" type="application/rss+xml" title="NOTE - To Store Memory!" href="/feed.xml" />
+
+  
+
+  
+    
+      
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css" />
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    
+      <link rel="stylesheet" href="/css/bootstrap-social.css" />
+    
+      <link rel="stylesheet" href="/css/main.css" />
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700&amp;subset=vietnamese" />
+    
+  
+
+  
+
+  
+
+  
+
+    <!-- Facebook OpenGraph tags -->
+  
+
+  
+  <meta property="og:title" content="Java 8 - Lambda Comparator" />
+  
+
+   
+  <meta property="og:description" content="Lambda Comparator Example
+
+Classic Comparator example:
+
+1
+2
+3
+4
+5
+6
+Comparator&amp;lt;Developer&amp;gt; byAge = new Comparator&amp;lt;Developer&amp;gt;() {
+    @Override
+    public int compare(Developer dev1, Developer dev2) {
+        return dev1.getAge() - dev2.getAge();
+    }
+};
+
+Lambda expression equivalent:
+
+1
+Comparator&amp;lt;Developer&amp;gt; byAge = (Developer dev1, Developer dev2) -&amp;gt; dev1.getAge() - dev2.getAge();
+
+">
+  
+
+
+  <meta property="og:type" content="website" />
+
+  
+  <meta property="og:url" content="http://localhost:4000/java-8-lambda-comparator/" />
+  <link rel="canonical" href="http://localhost:4000/java-8-lambda-comparator/" />
+  
+
+  
+  <meta property="og:image" content="http://localhost:4000/img/avatar-icon.jpg" />
+  
+
+
+  <!-- Twitter summary cards -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <meta name="twitter:creator" content="@" />
+
+  
+  <meta name="twitter:title" content="Java 8 - Lambda Comparator" />
+  
+
+  
+  <meta name="twitter:description" content="Lambda Comparator Example
+
+Classic Comparator example:
+
+1
+2
+3
+4
+5
+6
+Comparator&amp;lt;Developer&amp;gt; byAge = new Comparator&amp;lt;Developer&amp;gt;() {
+    @Override
+    public int compare(Developer dev1, Developer dev2) {
+        return dev1.getAge() - dev2.getAge();
+    }
+};
+
+Lambda expression equivalent:
+
+1
+Comparator&amp;lt;Developer&amp;gt; byAge = (Developer dev1, Developer dev2) -&amp;gt; dev1.getAge() - dev2.getAge();
+
+">
+  
+
+  
+  <meta name="twitter:image" content="http://localhost:4000/img/avatar-icon.jpg" />
+  
+
+  
+
+</head>
+
+
+  <body>
+
+    
+  
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+        <a class="navbar-brand" href="http://localhost:4000">NOTE</a>
+      
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+      
+        
+          <li>
+            
+
+
+
+
+
+
+<a href="/categories">Categories</a>
+
+          </li>
+        
+        
+        
+          <li>
+            
+
+
+
+
+
+
+<a href="/aboutme">About Me</a>
+
+          </li>
+        
+        
+        
+          <li>
+            
+
+
+
+
+
+
+<a href="/resources">Resources</a>
+
+          </li>
+        
+        
+      </ul>
+    </div>
+
+	
+
+  </div>
+</nav>
+
+
+    <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <div class="post-heading">
+            <h3 class="h-title">Java 8 - Lambda Comparator</h3>
+      
+		  
+		  
+		  <div class="post-meta text-right">Posted on December 20, 2018</div>
+		  
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 bg-transparent">
+
+      
+
+      <article role="main" class="blog-post">
+        <h3 id="lambda-comparator-example">Lambda Comparator Example</h3>
+
+<p>Classic <code class="highlighter-rouge">Comparator</code> example:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+</pre></td><td class="code"><pre><span class="n">Comparator</span><span class="o">&lt;</span><span class="n">Developer</span><span class="o">&gt;</span> <span class="n">byAge</span> <span class="o">=</span> <span class="k">new</span> <span class="n">Comparator</span><span class="o">&lt;</span><span class="n">Developer</span><span class="o">&gt;()</span> <span class="o">{</span>
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">int</span> <span class="nf">compare</span><span class="o">(</span><span class="n">Developer</span> <span class="n">dev1</span><span class="o">,</span> <span class="n">Developer</span> <span class="n">dev2</span><span class="o">)</span> <span class="o">{</span>
+        <span class="k">return</span> <span class="n">dev1</span><span class="o">.</span><span class="na">getAge</span><span class="o">()</span> <span class="o">-</span> <span class="n">dev2</span><span class="o">.</span><span class="na">getAge</span><span class="o">();</span>
+    <span class="o">}</span>
+<span class="o">};</span></pre></td></tr></tbody></table></code></pre></figure>
+
+<p>Lambda expression equivalent:</p>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+</pre></td><td class="code"><pre><span class="n">Comparator</span><span class="o">&lt;</span><span class="n">Developer</span><span class="o">&gt;</span> <span class="n">byAge</span> <span class="o">=</span> <span class="o">(</span><span class="n">Developer</span> <span class="n">dev1</span><span class="o">,</span> <span class="n">Developer</span> <span class="n">dev2</span><span class="o">)</span> <span class="o">-&gt;</span> <span class="n">dev1</span><span class="o">.</span><span class="na">getAge</span><span class="o">()</span> <span class="o">-</span> <span class="n">dev2</span><span class="o">.</span><span class="na">getAge</span><span class="o">();</span></pre></td></tr></tbody></table></code></pre></figure>
+
+
+      </article>
+
+      
+        <div class="blog-tags">
+          Tags:
+          
+          
+            <a href="/tags#java8">java8</a>
+          
+            <a href="/tags#lambda">lambda</a>
+          
+            <a href="/tags#comparator">comparator</a>
+          
+          
+        </div>
+      
+
+      
+        <!-- Check if any share-links are active -->
+
+
+
+
+<section id = "social-share-section">
+  <span class="sr-only">Share: </span>
+
+  
+  <!--- Share on Twitter -->
+    <a href="https://twitter.com/intent/tweet?text=Java+8+-+Lambda+Comparator+http://localhost:4000/java-8-lambda-comparator/"
+      class="btn btn-social-icon btn-twitter" title="Share on Twitter">
+      <span class="fa fa-fw fa-twitter" aria-hidden="true"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  
+
+  
+  <!--- Share on Facebook -->
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/java-8-lambda-comparator/"
+      class="btn btn-social-icon btn-facebook" title="Share on Facebook">
+      <span class="fa fa-fw fa-facebook" aria-hidden="true"></span>
+      <span class="sr-only">Facebook</span>
+    </a>
+  
+
+  
+
+  
+  <!--- Share on LinkedIn -->
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/java-8-lambda-comparator/"
+      class="btn btn-social-icon btn-linkedin" title="Share on LinkedIn">
+      <span class="fa fa-fw fa-linkedin" aria-hidden="true"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  
+
+</section>
+
+
+
+      
+
+      <ul class="pager blog-pager">
+        
+        <li class="previous">
+          <a href="/insertion-sort/" data-toggle="tooltip" data-placement="top" title="Tìm hiểu thuật toán Insertion Sort">&larr; Previous Post</a>
+        </li>
+        
+        
+        <li class="next">
+          <a href="/java-8-lambda/" data-toggle="tooltip" data-placement="top" title="Java 8 - Lambda">Next Post &rarr;</a>
+        </li>
+        
+      </ul>
+
+      
+        <div class="disqus-comments">
+          
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+
+    <footer>
+  <div class="container beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links"><li><a href="/feed.xml" title="RSS"><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only">RSS</span>
+              </a>
+            </li></ul>
+      <p class="copyright text-muted">
+      jeptoong
+      &nbsp;&bull;&nbsp;
+      2020
+
+      <!-- 
+      &nbsp;&bull;&nbsp;
+      <a href="http://localhost:4000">jeptoong.github.io</a>
+       -->
+
+      
+      </p>
+          <!-- Please don't remove this, keep my open source work credited :) -->
+    <p class="theme-by text-muted">
+      Theme by
+      <a href="http://deanattali.com/beautiful-jekyll/">beautiful-jekyll</a>
+    </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  
+    
+
+
+
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script>
+      	if (typeof jQuery == 'undefined') {
+      	  document.write('<script src="/js/jquery-1.11.2.min.js"></scr' + 'ipt>');
+      	}
+      </script>
+    
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+	<script src="/js/bootstrap.min.js"></script>
+    
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+	<script src="/js/main.js"></script>
+    
+  
+
+
+
+
+  
+  </body>
+</html>

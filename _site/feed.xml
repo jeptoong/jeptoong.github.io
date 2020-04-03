@@ -1,0 +1,189 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<rss version="2.0" xmlns:atom="http://www.w3.org/2005/Atom">
+  <channel>
+    <title>NOTE</title>
+    <description>To Store Memory!</description>
+    <link>http://localhost:4000</link>
+    <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
+    
+      <item>
+        <title>Note for Maven</title>
+        <description>
+          
+          Tag &amp;lt;parent&amp;gt; in pom.xml Maven reads the parent POM from your local repository (or proxies like Nexus) and create an ‘effective POM’ by merging the informcation from parent and module POM mvn package Will compile your code and also package it. For example, if your pom says the project is...
+        </description>
+        <pubDate>Sun, 17 Mar 2019 00:00:00 +0700</pubDate>
+        <link>http://localhost:4000/note-maven/</link>
+        <guid isPermaLink="true">http://localhost:4000/note-maven/</guid>
+      </item>
+    
+      <item>
+        <title>What's new in JDK 8</title>
+        <description>
+          Java Platform, Standard Edition 8 is a major feature release. This document summarizes features and enhancements in Java SE 8 and in JDK 8, Oracle's implementation of Java SE 8. - 
+          Java Programming Language
+Lambda Expressions
+
+Document Lambda Expressions Oracle
+
+Lambda expressions are supported by the following features:
+
+Method References
+
+        </description>
+        <pubDate>Thu, 14 Mar 2019 00:00:00 +0700</pubDate>
+        <link>http://localhost:4000/what-is-new-in-jdk-8/</link>
+        <guid isPermaLink="true">http://localhost:4000/what-is-new-in-jdk-8/</guid>
+      </item>
+    
+      <item>
+        <title>Anonymous Class</title>
+        <description>
+          Anonymous classes enable you to make your code more concise. They enable you to declare and instantiate a class at the same time. They are like local classes except that they do not have a name. Use them if you need to use a local class only once. - 
+          Document Anonymous Class Oracle Declaring Anonymous Classes Local classes are class declarations, anonymous classes are expressions. 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34...
+        </description>
+        <pubDate>Thu, 14 Mar 2019 00:00:00 +0700</pubDate>
+        <link>http://localhost:4000/anonymous-class/</link>
+        <guid isPermaLink="true">http://localhost:4000/anonymous-class/</guid>
+      </item>
+    
+      <item>
+        <title>Local Class</title>
+        <description>
+          
+          Document Local Class Oracle
+
+
+        </description>
+        <pubDate>Wed, 13 Mar 2019 00:00:00 +0700</pubDate>
+        <link>http://localhost:4000/local-class/</link>
+        <guid isPermaLink="true">http://localhost:4000/local-class/</guid>
+      </item>
+    
+      <item>
+        <title>Inner Class</title>
+        <description>
+          
+          Document Inner Class Oracle Inner Class Example 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 27 28 29 30 31 32 33 34 35 36 37 38 39 40 41 42 43...
+        </description>
+        <pubDate>Tue, 12 Mar 2019 00:00:00 +0700</pubDate>
+        <link>http://localhost:4000/inner-class/</link>
+        <guid isPermaLink="true">http://localhost:4000/inner-class/</guid>
+      </item>
+    
+      <item>
+        <title>JVM Garbage Collection</title>
+        <description>
+          Automatic garbage collection is the process of looking at heap memory, identifying which objects are in use and which are not, and deleting the unused objects. - 
+          Java Runtime Enviroment consists of the Java Virtual Machine (JVM), Java platform core classes, and supporting Java platform libraries Java Development Kit is a collection of tools for developing Java applications. The JDK and the JRE share the Java Application Programming Interfaces (Java API). The Java API is a collection...
+        </description>
+        <pubDate>Wed, 13 Feb 2019 00:00:00 +0700</pubDate>
+        <link>http://localhost:4000/jvm-garbage-collection/</link>
+        <guid isPermaLink="true">http://localhost:4000/jvm-garbage-collection/</guid>
+      </item>
+    
+      <item>
+        <title>Giới thiệu sơ lược Multithreaded trong Java</title>
+        <description>
+          Một chương trình đa luồng chứa 2 hoặc nhiều phần chạy đồng thời và mỗi phần có thể xử lý tác vụ khác nhau tại cùng một thời điểm - 
+          Note: Java là multi-threaded programming language. Một chương trình đa luồng chứa 2 hoặc nhiều phần chạy đồng thời và mỗi phần có thể xử lý tác vụ khác nhau tại cùng một thời điểm Theo định nghĩa, đa nhiệm (multitasking) là khi nhiều tiến trình chia sẻ nguồn xử...
+        </description>
+        <pubDate>Mon, 11 Feb 2019 00:00:00 +0700</pubDate>
+        <link>http://localhost:4000/java-multithreaded/</link>
+        <guid isPermaLink="true">http://localhost:4000/java-multithreaded/</guid>
+      </item>
+    
+      <item>
+        <title>Java 8 - Lambda</title>
+        <description>
+          
+          Note:
+
+  The complier generates a new class file for each anonymus inner class. The file name usually looks like ClassName$1
+
+
+        </description>
+        <pubDate>Thu, 20 Dec 2018 00:00:00 +0700</pubDate>
+        <link>http://localhost:4000/java-8-lambda/</link>
+        <guid isPermaLink="true">http://localhost:4000/java-8-lambda/</guid>
+      </item>
+    
+      <item>
+        <title>Java 8 - Lambda Comparator</title>
+        <description>
+          
+          Lambda Comparator Example
+
+Classic Comparator example:
+
+1
+2
+3
+4
+5
+6
+Comparator&amp;lt;Developer&amp;gt; byAge = new Comparator&amp;lt;Developer&amp;gt;() {
+    @Override
+    public int compare(Developer dev1, Developer dev2) {
+        return dev1.getAge() - dev2.getAge();
+    }
+};
+
+Lambda expression equivalent:
+
+1
+Comparator&amp;lt;Developer&amp;gt; byAge = (Developer dev1, Developer dev2) -&amp;gt; dev1.getAge() - dev2.getAge();
+
+
+        </description>
+        <pubDate>Thu, 20 Dec 2018 00:00:00 +0700</pubDate>
+        <link>http://localhost:4000/java-8-lambda-comparator/</link>
+        <guid isPermaLink="true">http://localhost:4000/java-8-lambda-comparator/</guid>
+      </item>
+    
+      <item>
+        <title>Tìm hiểu thuật toán Insertion Sort</title>
+        <description>
+          
+          Bài toán Cho một mảng A, sắp xếp theo thứ tự không giảm (nondecreasing). Mã giả var A: array; i, j: int; for j := 1; j &amp;lt; A.length; j := j + 1 i := j - 1; val := A[j]; // Chèn A[j] vào mảng A[1..j - 1]...
+        </description>
+        <pubDate>Sun, 17 Jun 2018 00:00:00 +0700</pubDate>
+        <link>http://localhost:4000/insertion-sort/</link>
+        <guid isPermaLink="true">http://localhost:4000/insertion-sort/</guid>
+      </item>
+    
+      <item>
+        <title>Tìm hiểu bind function trong javascript</title>
+        <description>
+          
+          Khi code javascript chúng ta sẽ gặp phải trường hợp cần giữ lại “this” trong function khác, nghiều người gán lại this bằng các biến self, this, cách làm này không có gì sai nhưng chúng ta có một cách tốt hơn, chuyên dụng hơn. 1 2 3 4 5...
+        </description>
+        <pubDate>Sat, 16 Jun 2018 00:00:00 +0700</pubDate>
+        <link>http://localhost:4000/javascript-bind/</link>
+        <guid isPermaLink="true">http://localhost:4000/javascript-bind/</guid>
+      </item>
+    
+      <item>
+        <title>Github Page và Jekyll</title>
+        <description>
+          Lưu lại để khỏi quên - 
+          Cài đặt Ruby, gem, bundle Ruby: download tại rubyinstaller.org Gem: Thấy cài thì đã có sẵn, kiểm tra bằng lệnh gem -v sẽ ra version. Bundle: gem install bundler Blog Fork một template về (Ex: daattali/beautiful-jekyll) Run blog ở local Vào folder blog, gõ bundle install Gõ bundle exec jekyll...
+        </description>
+        <pubDate>Tue, 22 May 2018 00:00:00 +0700</pubDate>
+        <link>http://localhost:4000/github-page-va-jekyll/</link>
+        <guid isPermaLink="true">http://localhost:4000/github-page-va-jekyll/</guid>
+      </item>
+    
+      <item>
+        <title>em, rem, vh, vw trong css</title>
+        <description>
+          Một số unit trong css - 
+          Trong CSS có khá nhiều unit để biểu thị kích thước, nhưng tóm lại, chúng chỉ được phân thành 2 loại là: Absolute (tuyệt đối) và Relative (tương đối) Absolute Unit Description cm centimeters mm millimeters in inches (1in = 96px = 2.54cm) px pixels (1px = 1/96th of 1in)...
+        </description>
+        <pubDate>Sun, 06 May 2018 00:00:00 +0700</pubDate>
+        <link>http://localhost:4000/em-rem-vh-vw-trong-css/</link>
+        <guid isPermaLink="true">http://localhost:4000/em-rem-vh-vw-trong-css/</guid>
+      </item>
+    
+  </channel>
+</rss>

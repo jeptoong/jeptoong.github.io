@@ -1,6 +1,6 @@
 ---
 layout: post
-title: Đôi chút về Garbage Collection trong Java
+title: JVM Garbage Collection
 subtitle: Automatic garbage collection is the process of looking at heap memory, identifying which objects are in use and which are not, and deleting the unused objects.
 categories: [java]
 tags: [java, garbage-collection]

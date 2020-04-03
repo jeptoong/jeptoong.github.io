@@ -16,6 +16,10 @@ body {
   position: relative;
   background-color: #FFFFFF;
   
+  background-image: url(/img/greynoise.jpg);
+  background-attachment: fixed;
+  /* background-repeat: no-repeat; */
+  
 }
 p {
   line-height: 1.5;
@@ -29,7 +33,7 @@ h1,h2,h3,h4,h5,h6 {
   font-size: 1.3rem;
 }
 a {
-  color: #008AFF;
+  color: #03b1fd;
 }
 a:hover,
 a:focus {
@@ -133,18 +137,21 @@ img {
   border-bottom: 1px solid #EAEAEA;
   /*font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;*/
   
+  background-image: url(/img/bluenoise.jpg);
+  background-attachment: fixed;
+  
 }
 
 .navbar-custom .nav li a {
   text-transform: uppercase;
-  font-size: 12px;
+  font-size: 14px;
   letter-spacing: 1px;
 }
 
 .navbar-custom .navbar-brand,
 .navbar-custom .nav li a {
   font-weight: 800;
-  color: #404040;
+  color: #FFFFFF;
 }
 
 .navbar-custom .navbar-brand:hover,
@@ -338,14 +345,18 @@ footer .theme-by {
 }
 
 .category-item a {
-  color: #ca2a2a;
+  color: #333333;
   text-transform: uppercase;
 }
 
 /* POST */
+.heading-wrap {
+  padding: 0;
+}
+
 .h-title {
   font-size: 1.8rem;
-  color: #ca2a2a;
+  color: #333333;
 }
 
 /* --- Post preview --- */
@@ -353,8 +364,13 @@ footer .theme-by {
   margin: 20px 0;
 }
 
+.post-group {
+  color: #f76625;
+}
+
 .post-group::before {
-  color: #ccc;
+  /* color: #ccc; */
+  color: #f76625;
   margin-left: -10px;
   margin-right: 0px;
   content: "#";
@@ -377,7 +393,7 @@ footer .theme-by {
 */
 .post-preview a {
   text-decoration: none;
-  color: #ca2a2a;
+  color: #333333;
   outline: none;
 }
 
@@ -392,7 +408,7 @@ footer .theme-by {
   font-weight: 400;
   margin: 0;
   display: inline;
-  text-transform: lowercase;
+  /* text-transform: lowercase; */
 }
 .post-preview .post-title::before {
   content: '-';
@@ -494,13 +510,13 @@ footer .theme-by {
 .blog-tags {
   /*font-family: 'Open Sans', 'Helvetica Neue', Helvetica, Arial, sans-serif;*/
   color: #999;
-  font-size: .75rem;
+  font-size: .85rem;
   margin-top: 50px;
   margin-bottom: 30px;
 }
 
 .blog-tags a {
-  color: #008AFF;
+  color: #03b1fd;
   text-decoration: none;
   padding: 0px 5px;
   background: #eee;

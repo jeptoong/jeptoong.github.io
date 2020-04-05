@@ -1,0 +1,502 @@
+<!DOCTYPE html>
+<html lang="en">
+  <!-- Beautiful Jekyll | MIT license | Copyright Dean Attali 2016 -->
+  <head>
+  <meta charset="utf-8" />
+  <meta http-equiv="X-UA-Compatible" content="IE=edge">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0">
+
+  <title>Config logback để send email khi có log level ERROR</title>
+
+  <meta name="author" content="jeptoong" />
+
+  
+
+  <link rel="alternate" type="application/rss+xml" title="NOTE - To Store Memory!" href="/feed.xml" />
+
+  
+
+  
+    
+      
+  <link rel="stylesheet" href="//maxcdn.bootstrapcdn.com/font-awesome/4.6.0/css/font-awesome.min.css" />
+
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="/css/bootstrap.min.css" />
+    
+      <link rel="stylesheet" href="/css/bootstrap-social.css" />
+    
+      <link rel="stylesheet" href="/css/main.css" />
+    
+  
+
+  
+    
+      <link rel="stylesheet" href="//fonts.googleapis.com/css?family=Source+Sans+Pro:400,700&amp;subset=vietnamese" />
+    
+  
+
+  
+
+  
+
+  
+
+    <!-- Facebook OpenGraph tags -->
+  
+
+  
+  <meta property="og:title" content="Config logback để send email khi có log level ERROR" />
+  
+
+   
+  <meta property="og:description" content="Configuration 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 &amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&amp;gt; &amp;lt;configuration scan=&quot;true&quot; scanPeriod=&quot;120 seconds&quot;&amp;gt; &amp;lt;!-- OTHER APPENDER --&amp;gt; &amp;lt;!-- Send messages to Email --&amp;gt; &amp;lt;appender name=&quot;EMAIL&quot; class=&quot;ch.qos.logback.classic.net.SMTPAppender&quot;&amp;gt; &amp;lt;smtpHost&amp;gt;smtp.gmail.com&amp;lt;/smtpHost&amp;gt; &amp;lt;smtpPort&amp;gt;587&amp;lt;/smtpPort&amp;gt; &amp;lt;STARTTLS&amp;gt;true&amp;lt;/STARTTLS&amp;gt;...">
+  
+
+
+  <meta property="og:type" content="website" />
+
+  
+  <meta property="og:url" content="http://localhost:4000/configuration-logback-email/" />
+  <link rel="canonical" href="http://localhost:4000/configuration-logback-email/" />
+  
+
+  
+  <meta property="og:image" content="http://localhost:4000/img/avatar-icon.jpg" />
+  
+
+
+  <!-- Twitter summary cards -->
+  <meta name="twitter:card" content="summary" />
+  <meta name="twitter:site" content="@" />
+  <meta name="twitter:creator" content="@" />
+
+  
+  <meta name="twitter:title" content="Config logback để send email khi có log level ERROR" />
+  
+
+  
+  <meta name="twitter:description" content="Configuration 1 2 3 4 5 6 7 8 9 10 11 12 13 14 15 16 17 18 19 20 21 22 23 24 25 26 &amp;lt;?xml version=&quot;1.0&quot; encoding=&quot;UTF-8&quot;?&amp;gt; &amp;lt;configuration scan=&quot;true&quot; scanPeriod=&quot;120 seconds&quot;&amp;gt; &amp;lt;!-- OTHER APPENDER --&amp;gt; &amp;lt;!-- Send messages to Email --&amp;gt; &amp;lt;appender name=&quot;EMAIL&quot; class=&quot;ch.qos.logback.classic.net.SMTPAppender&quot;&amp;gt; &amp;lt;smtpHost&amp;gt;smtp.gmail.com&amp;lt;/smtpHost&amp;gt; &amp;lt;smtpPort&amp;gt;587&amp;lt;/smtpPort&amp;gt; &amp;lt;STARTTLS&amp;gt;true&amp;lt;/STARTTLS&amp;gt;...">
+  
+
+  
+  <meta name="twitter:image" content="http://localhost:4000/img/avatar-icon.jpg" />
+  
+
+  
+
+</head>
+
+
+  <body>
+
+    
+  
+    <nav class="navbar navbar-default navbar-fixed-top navbar-custom">
+  <div class="container-fluid">
+    <div class="navbar-header">
+      <button type="button" class="navbar-toggle" data-toggle="collapse" data-target="#main-navbar">
+        <span class="sr-only">Toggle navigation</span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+        <span class="icon-bar"></span>
+      </button>
+      
+        <a class="navbar-brand" href="http://localhost:4000">NOTE</a>
+      
+    </div>
+
+    <div class="collapse navbar-collapse" id="main-navbar">
+      <ul class="nav navbar-nav navbar-right">
+      
+        
+          <li>
+            
+
+
+
+
+
+
+<a href="/categories">Categories</a>
+
+          </li>
+        
+        
+        
+          <li>
+            
+
+
+
+
+
+
+<a href="/aboutme">About Me</a>
+
+          </li>
+        
+        
+        
+          <li>
+            
+
+
+
+
+
+
+<a href="/resources">Resources</a>
+
+          </li>
+        
+        
+      </ul>
+    </div>
+
+	
+
+  </div>
+</nav>
+
+
+    <!-- TODO this file has become a mess, refactor it -->
+
+
+
+
+
+<header class="header-section ">
+
+<div class="intro-header no-img">
+  <div class="container">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 heading-wrap">
+        <div class="post-heading">
+            <h3 class="h-title">Config logback để send email khi có log level ERROR</h3>
+      
+		  
+		  
+		  <div class="post-meta text-right">Posted on April 5, 2020</div>
+		  
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+</header>
+
+
+
+
+
+<div class="container">
+  <div class="row">
+    <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1 bg-transparent">
+
+      
+
+      <article role="main" class="blog-post">
+        <h3 id="configuration">Configuration</h3>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+16
+17
+18
+19
+20
+21
+22
+23
+24
+25
+26
+</pre></td><td class="code"><pre><span class="cp">&lt;?xml version="1.0" encoding="UTF-8"?&gt;</span>
+
+<span class="nt">&lt;configuration</span> <span class="na">scan=</span><span class="s">"true"</span> <span class="na">scanPeriod=</span><span class="s">"120 seconds"</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!-- OTHER APPENDER --&gt;</span>
+    
+    <span class="c">&lt;!--  Send messages to Email  --&gt;</span>
+    <span class="nt">&lt;appender</span> <span class="na">name=</span><span class="s">"EMAIL"</span> <span class="na">class=</span><span class="s">"ch.qos.logback.classic.net.SMTPAppender"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;smtpHost&gt;</span>smtp.gmail.com<span class="nt">&lt;/smtpHost&gt;</span>
+        <span class="nt">&lt;smtpPort&gt;</span>587<span class="nt">&lt;/smtpPort&gt;</span>
+        <span class="nt">&lt;STARTTLS&gt;</span>true<span class="nt">&lt;/STARTTLS&gt;</span>
+        <span class="nt">&lt;asynchronousSending&gt;</span>false<span class="nt">&lt;/asynchronousSending&gt;</span>
+        <span class="nt">&lt;username&gt;</span>your-email@mail.com<span class="nt">&lt;/username&gt;</span>
+        <span class="nt">&lt;password&gt;</span>password<span class="nt">&lt;/password&gt;</span>
+        <span class="nt">&lt;to&gt;</span>receiver-email@mail.com<span class="nt">&lt;/to&gt;</span>
+        <span class="nt">&lt;from&gt;</span>your-email@mail.com<span class="nt">&lt;/from&gt;</span>
+        <span class="nt">&lt;subject&gt;</span>[ERROR] TOOL-C: %m - %d{yyyy-MM-dd HH:mm:ss.SSS}<span class="nt">&lt;/subject&gt;</span>
+        <span class="nt">&lt;layout</span> <span class="na">class=</span><span class="s">"ch.qos.logback.classic.html.HTMLLayout"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/appender&gt;</span>
+
+    <span class="c">&lt;!--  Root configuration  --&gt;</span>
+    <span class="nt">&lt;root</span> <span class="na">level=</span><span class="s">"${logback.log.level}"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;appender-ref</span> <span class="na">ref=</span><span class="s">"STDOUT"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;appender-ref</span> <span class="na">ref=</span><span class="s">"TOOL"</span><span class="nt">/&gt;</span>
+        <span class="nt">&lt;appender-ref</span> <span class="na">ref=</span><span class="s">"EMAIL"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/root&gt;</span>
+<span class="nt">&lt;/configuration&gt;</span></pre></td></tr></tbody></table></code></pre></figure>
+
+<h3 id="các-vấn-đề-chú-ý">Các vấn đề chú ý</h3>
+
+<ol>
+  <li>Không gửi được gmail.
+    <ul>
+      <li>Bởi vì các lý do bảo mật chặt chẽ của Google, bạn có thể sẽ không gửi dc gmail.
+        <blockquote>
+          <p>Bạn phải thay đổi setting của account <a href="https://support.google.com/accounts/answer/6010255" target="_blank">Turn off “Less secure app access”</a></p>
+        </blockquote>
+      </li>
+      <li>Nếu bạn dùng bảo mật 2 lớp.
+        <blockquote>
+          <p>Bạn phải dùng <code class="highlighter-rouge">Mật khẩu ứng dụng</code> thay thế.</p>
+        </blockquote>
+      </li>
+    </ul>
+  </li>
+  <li>Config như trên rồi nhưng vẫn không gửi được email.
+    <blockquote>
+      <p>Lưu ý rằng khi gặp error hoặc log error thì SMTPAppender mới send email.</p>
+    </blockquote>
+  </li>
+  <li>Vấn đề bảo mật.
+    <ul>
+      <li>Thông tin password trong file logback.xml có thể thấy dễ dàng, khi đẩy lên các kho lưu trữ như github, gitlab, bitbucket, … thì có thể lộ thông tin.
+        <blockquote>
+          <ul>
+            <li>Có thể sử dụng git-crypt tool để encrypt file logback.xml</li>
+            <li>Extend class SMTPAppender và mã hóa password.</li>
+          </ul>
+        </blockquote>
+      </li>
+    </ul>
+  </li>
+</ol>
+
+<p>Ex:</p>
+
+<figure class="highlight"><pre><code class="language-xml" data-lang="xml"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+13
+14
+15
+</pre></td><td class="code"><pre><span class="nt">&lt;configuration</span> <span class="na">scan=</span><span class="s">"true"</span> <span class="na">scanPeriod=</span><span class="s">"120 seconds"</span><span class="nt">&gt;</span>
+    <span class="c">&lt;!--  Send messages to Email  --&gt;</span>
+    <span class="nt">&lt;appender</span> <span class="na">name=</span><span class="s">"EMAIL"</span> <span class="na">class=</span><span class="s">"org.tool.services.logback.SMTPAppenderEncryptPass"</span><span class="nt">&gt;</span>
+        <span class="nt">&lt;smtpHost&gt;</span>smtp.gmail.com<span class="nt">&lt;/smtpHost&gt;</span>
+        <span class="nt">&lt;smtpPort&gt;</span>587<span class="nt">&lt;/smtpPort&gt;</span>
+        <span class="nt">&lt;STARTTLS&gt;</span>true<span class="nt">&lt;/STARTTLS&gt;</span>
+        <span class="nt">&lt;asynchronousSending&gt;</span>false<span class="nt">&lt;/asynchronousSending&gt;</span>
+        <span class="nt">&lt;username&gt;</span>your-email@mail.com<span class="nt">&lt;/username&gt;</span>
+        <span class="nt">&lt;password&gt;</span>[PROTECTED]<span class="nt">&lt;/password&gt;</span>
+        <span class="nt">&lt;to&gt;</span>receiver-email@mail.com<span class="nt">&lt;/to&gt;</span>
+        <span class="nt">&lt;from&gt;</span>your-email@mail.com<span class="nt">&lt;/from&gt;</span>
+        <span class="nt">&lt;subject&gt;</span>[ERROR] TOOL-C: %m - %d{yyyy-MM-dd HH:mm:ss.SSS}<span class="nt">&lt;/subject&gt;</span>
+        <span class="nt">&lt;layout</span> <span class="na">class=</span><span class="s">"ch.qos.logback.classic.html.HTMLLayout"</span><span class="nt">/&gt;</span>
+    <span class="nt">&lt;/appender&gt;</span>
+<span class="nt">&lt;/configuration&gt;</span></pre></td></tr></tbody></table></code></pre></figure>
+
+<figure class="highlight"><pre><code class="language-java" data-lang="java"><table class="rouge-table"><tbody><tr><td class="gutter gl"><pre class="lineno">1
+2
+3
+4
+5
+6
+7
+8
+9
+10
+11
+12
+</pre></td><td class="code"><pre><span class="kd">public</span> <span class="kd">class</span> <span class="nc">SMTPAppenderEncryptPass</span> <span class="kd">extends</span> <span class="n">SMTPAppender</span> <span class="o">{</span>
+
+    <span class="nd">@Override</span>
+    <span class="kd">public</span> <span class="kt">void</span> <span class="nf">setPassword</span><span class="o">(</span><span class="n">String</span> <span class="n">password</span><span class="o">)</span> <span class="o">{</span>
+        <span class="c1">// If password is equal [PROTECTED], get password from properties file and decrypt it.</span>
+        <span class="k">if</span> <span class="o">(</span><span class="s">"[PROTECTED]"</span><span class="o">.</span><span class="na">equals</span><span class="o">(</span><span class="n">password</span><span class="o">))</span> <span class="o">{</span>
+            <span class="n">ResourceBundle</span> <span class="n">bundle</span> <span class="o">=</span> <span class="n">ResourceBundle</span><span class="o">.</span><span class="na">getBundle</span><span class="o">(</span><span class="n">Constants</span><span class="o">.</span><span class="na">BUNDLE_APPLICATION</span><span class="o">);</span>
+            <span class="n">password</span> <span class="o">=</span> <span class="n">CryptoUtils</span><span class="o">.</span><span class="na">decryptString</span><span class="o">(</span><span class="n">bundle</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"crypto.algorithm"</span><span class="o">),</span> <span class="n">bundle</span><span class="o">.</span><span class="na">getString</span><span class="o">(</span><span class="s">"logback.password"</span><span class="o">));</span>
+        <span class="o">}</span>
+        <span class="kd">super</span><span class="o">.</span><span class="na">setPassword</span><span class="o">(</span><span class="n">password</span><span class="o">);</span>
+    <span class="o">}</span>
+<span class="o">}</span></pre></td></tr></tbody></table></code></pre></figure>
+
+      </article>
+
+      
+        <div class="blog-tags">
+          Tags:
+          
+          
+            <a href="/tags#java">java</a>
+          
+            <a href="/tags#jackson">jackson</a>
+          
+          
+        </div>
+      
+
+      
+        <!-- Check if any share-links are active -->
+
+
+
+
+<section id = "social-share-section">
+  <span class="sr-only">Share: </span>
+
+  
+  <!--- Share on Twitter -->
+    <a href="https://twitter.com/intent/tweet?text=Config+logback+%C4%91%E1%BB%83+send+email+khi+c%C3%B3+log+level+ERROR+http://localhost:4000/configuration-logback-email/"
+      class="btn btn-social-icon btn-twitter" title="Share on Twitter">
+      <span class="fa fa-fw fa-twitter" aria-hidden="true"></span>
+      <span class="sr-only">Twitter</span>
+    </a>
+  
+
+  
+  <!--- Share on Facebook -->
+    <a href="https://www.facebook.com/sharer/sharer.php?u=http://localhost:4000/configuration-logback-email/"
+      class="btn btn-social-icon btn-facebook" title="Share on Facebook">
+      <span class="fa fa-fw fa-facebook" aria-hidden="true"></span>
+      <span class="sr-only">Facebook</span>
+    </a>
+  
+
+  
+
+  
+  <!--- Share on LinkedIn -->
+    <a href="https://www.linkedin.com/shareArticle?mini=true&url=http://localhost:4000/configuration-logback-email/"
+      class="btn btn-social-icon btn-linkedin" title="Share on LinkedIn">
+      <span class="fa fa-fw fa-linkedin" aria-hidden="true"></span>
+      <span class="sr-only">LinkedIn</span>
+    </a>
+  
+
+</section>
+
+
+
+      
+
+      <ul class="pager blog-pager">
+        
+        <li class="previous">
+          <a href="/note-maven/" data-toggle="tooltip" data-placement="top" title="Note for Maven">&larr; Previous Post</a>
+        </li>
+        
+        
+        <li class="next">
+          <a href="/using-jackson-convert-json-to-object-in-java/" data-toggle="tooltip" data-placement="top" title="Sử dụng Jackson để convert JSON thành object trong JAVA">Next Post &rarr;</a>
+        </li>
+        
+      </ul>
+
+      
+        <div class="disqus-comments">
+          
+        </div>
+      
+    </div>
+  </div>
+</div>
+
+
+    <footer>
+  <div class="container beautiful-jekyll-footer">
+    <div class="row">
+      <div class="col-lg-8 col-lg-offset-2 col-md-10 col-md-offset-1">
+        <ul class="list-inline text-center footer-links"><li><a href="/feed.xml" title="RSS"><span class="fa-stack fa-lg" aria-hidden="true">
+                  <i class="fa fa-circle fa-stack-2x"></i>
+                  <i class="fa fa-rss fa-stack-1x fa-inverse"></i>
+                </span>
+                <span class="sr-only">RSS</span>
+              </a>
+            </li></ul>
+      <p class="copyright text-muted">
+      jeptoong
+      &nbsp;&bull;&nbsp;
+      2020
+
+      <!-- 
+      &nbsp;&bull;&nbsp;
+      <a href="http://localhost:4000">jeptoong.github.io</a>
+       -->
+
+      
+      </p>
+          <!-- Please don't remove this, keep my open source work credited :) -->
+    <p class="theme-by text-muted">
+      Theme by
+      <a href="http://deanattali.com/beautiful-jekyll/">beautiful-jekyll</a>
+    </p>
+      </div>
+    </div>
+  </div>
+</footer>
+
+  
+    
+
+
+
+
+
+
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+      <script>
+      	if (typeof jQuery == 'undefined') {
+      	  document.write('<script src="/js/jquery-1.11.2.min.js"></scr' + 'ipt>');
+      	}
+      </script>
+    
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+	<script src="/js/bootstrap.min.js"></script>
+    
+  
+    <!-- doing something a bit funky here because I want to be careful not to include JQuery twice! -->
+    
+	<script src="/js/main.js"></script>
+    
+  
+
+
+
+
+  
+  </body>
+</html>

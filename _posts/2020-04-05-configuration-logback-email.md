@@ -3,7 +3,7 @@ layout: post
 title: Config logback để send email khi có log level ERROR
 subtitle:
 categories: [java]
-tags: [java, jackson]
+tags: [java, logback, error]
 ---
 
 ### Configuration

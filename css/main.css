@@ -357,9 +357,6 @@ footer .theme-by {
 }
 
 /* POST */
-.heading-wrap {
-  padding: 0;
-}
 
 .h-title {
   font-size: 1.8rem;
@@ -507,6 +504,10 @@ footer .theme-by {
 }
 
 @media only screen and (min-width: 768px) {
+  .heading-wrap {
+    padding: 0;
+  }
+
   .blog-post .img-70 img {
     width: 70%;
   }

@@ -53,7 +53,7 @@ tags: [java, jackson]
 > - Có thể sử dụng git-crypt tool để encrypt file logback.xml
 > - Extend class SMTPAppender và mã hóa password.
 
-Ex:
+Ex: Extend class SMTPAppender
 
 {% highlight xml linenos %}
 <configuration scan="true" scanPeriod="120 seconds">

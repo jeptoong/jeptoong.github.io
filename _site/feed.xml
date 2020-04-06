@@ -7,6 +7,17 @@
     <atom:link href="http://localhost:4000/feed.xml" rel="self" type="application/rss+xml" />
     
       <item>
+        <title>Tạo server tại nhà</title>
+        <description>
+          Tạo server tại nhà có thể truy cập được từ mạng bên ngoài - 
+          Hôm nay mình tìm hiểu được một thứ rất hay, đó là publish web site để có thể truy cập từ mạng bên ngoài mà không cần phải thuê ip tĩnh của nhà mạng. Những thứ mình cần là: Một máy tính Quyền truy cập vào router Config hệ thống...
+        </description>
+        <pubDate>Mon, 06 Apr 2020 00:00:00 +0700</pubDate>
+        <link>http://localhost:4000/create-server-at-home/</link>
+        <guid isPermaLink="true">http://localhost:4000/create-server-at-home/</guid>
+      </item>
+    
+      <item>
         <title>Sử dụng Jackson để convert JSON thành object trong JAVA</title>
         <description>
           Cách convert JSON thành object trong JAVA. - 

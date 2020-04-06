@@ -41,7 +41,7 @@ tags: [java, logback, error]
 
 1. Không gửi được gmail.
 - Bởi vì các lý do bảo mật chặt chẽ của Google, bạn có thể sẽ không gửi dc gmail.
-> Bạn phải thay đổi setting của account [Turn off "Less secure app access"](https://support.google.com/accounts/answer/6010255){:target="_blank"}
+> Bạn phải thay đổi setting của account [Turn on "Less secure app access"](https://support.google.com/accounts/answer/6010255){:target="_blank"}
 - Nếu bạn dùng bảo mật 2 lớp.
 > Bạn phải dùng `Mật khẩu ứng dụng` thay thế.
 

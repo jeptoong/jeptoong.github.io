@@ -21,7 +21,7 @@ Các lý do:
 
 * **Giảm response time**: Chúng ta có thể giảm response time khi sử dụng multi-thread bằng cách chia một vấn đề lớn thành các phần nhỏ hơn.
 
-* **Để phục vụ nhiều client hơn tại một thời điểm**: Đối với các ứng dụng client-server, nếu sử dụng signle-thread thì có nghĩa là chỉ có một client connect tới server tại một thời điểm, còn đối với mutil-thread, nhiều client có thể cùng lúc connect tới server, điều này có nghĩa là client tiếp theo không phải đợi server hoàn thành xử lý request của client trước.
+* **Để phục vụ nhiều client hơn tại một thời điểm**: Đối với các ứng dụng client-server, nếu sử dụng single-thread thì chỉ có thể một client connect tới server tại một thời điểm, còn đối với mutil-thread, nhiều client có thể cùng lúc connect tới server, điều này có nghĩa là client tiếp theo không phải đợi server hoàn thành xử lý request của client trước.
 
 
 ### Ứng dụng của thread, multi-thread?

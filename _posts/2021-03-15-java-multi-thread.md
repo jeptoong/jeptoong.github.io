@@ -77,4 +77,5 @@ public class RunExercise {
 {% endhighlight %}
 
 ***Khi nào thì dùng cách extend Thread, khi nào thì dùng cách Runnable?***
+
 Ở cách 1, khi class chúng ta extends Thread class, chúng ta không có cơ hội để extend bất kỳ class nào khác, do đó chúng ta sẽ không tận dụng được benefit của Inheritance. Ở cách 2, khi impelement Runnable interface chúng ta có thể extend thêm bất kỳ class nào khác, do đó ta tận dụng được benefit của Inheritance.

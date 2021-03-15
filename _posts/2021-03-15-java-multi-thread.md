@@ -8,8 +8,8 @@ tags: [thread, multi-thread]
 > **Q:**
 > 1. Tại sao cần dùng thread, multi-thread?
 > 2. Ứng dụng của thread, multi-thread?
-> 3. Ưu điểm & nhược điểm trong đa luồng
-> 4. Cách tạo thread
+> 3. Cách tạo thread
+> 4. Ưu điểm & nhược điểm trong đa luồng
 
 ### Tại sao cần dùng thread, multi-thread?
 Nói theo cách thông thường, chùng ta sử dụng java Thread bởi vì nó giúp ứng dụng chạy nhanh hơn bằng cách thực hiện nhiều công việc cùng lúc. Theo ngôn ngữ kỹ thuật, Thread giúp bạn đạt được tính song song trong các chương trình java.
@@ -22,3 +22,7 @@ Các lý do:
 * **Giảm response time**: Chúng ta có thể giảm response time khi sử dụng multi-thread bằng cách chia một vấn đề lớn thành các phần nhỏ hơn.
 
 * **Để phục vụ nhiều client hơn tại một thời điểm**: Đối với các ứng dụng client-server, nếu sử dụng signle-thread thì có nghĩa là chỉ có một client connect tới server tại một thời điểm, còn đối với mutil-thread, nhiều client có thể cùng lúc connect tới server, điều này có nghĩa là client tiếp theo không phải đợi server hoàn thành xử lý request của client trước.
+
+
+### Ứng dụng của thread, multi-thread?
+Ngày nay hầu hết các ứng dụng điều sử dụng multi-thread. Ví dụ browser mở nhiều tab cùng lúc, mỗi tab lại hiển thị mỗi nội dung khác nhau, nhiều thread được sử dụng để load nội dung, display animation, play video, ... Hoặc như ứng dụng Word, multi-thread được sử dụng để hiển thị text, check spell và grammer.

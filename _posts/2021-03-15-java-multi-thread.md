@@ -12,7 +12,7 @@ tags: [thread, multi-thread]
 > 4. Ưu điểm & nhược điểm trong đa luồng
 
 ### Tại sao cần dùng thread, multi-thread?
-Nói theo cách thông thường, chùng ta sử dụng java Thread bởi vì nó giúp ứng dụng chạy nhanh hơn bằng cách thực hiện nhiều công việc cùng lúc. Theo ngôn ngữ kỹ thuật, Thread giúp bạn đạt được tính song song trong các chương trình java.
+Nói theo cách thông thường, chúng ta sử dụng java Thread bởi vì nó giúp ứng dụng chạy nhanh hơn bằng cách thực hiện nhiều công việc cùng lúc. Theo ngôn ngữ kỹ thuật, Thread giúp bạn đạt được tính song song trong các chương trình java.
 
 Các lý do:
 * **Parallel Programming**: Làm cho một task có thể chạy song song với các task khác. Ví dụ IDE code của chúng ta, vừa nhận input của dev vừa download document source hay update SVN, ... dưới background. Nếu các task này chạy tuần tự ta sẽ có cảm giác như IDE bị treo, việc này sẽ ảnh hưởng trải nghiệm của người sử dụng và không tận dụng được sức mạnh của các bộ vi xử lý nhiều cores hiện đại ngày nay.
@@ -26,3 +26,52 @@ Các lý do:
 
 ### Ứng dụng của thread, multi-thread?
 Ngày nay hầu hết các ứng dụng điều sử dụng multi-thread. Ví dụ browser mở nhiều tab cùng lúc, mỗi tab lại hiển thị mỗi nội dung khác nhau, nhiều thread được sử dụng để load nội dung, display animation, play video, ... Hoặc như ứng dụng Word, multi-thread được sử dụng để hiển thị text, check spell và grammer.
+
+
+### Cách tạo thread
+Có 2 cách để tạo thread trong java:
+* Extending Thread class
+* Implementing Runnable interface
+
+***Ex:***
+{% highlight java linenos %}
+// Creates thread by extending Thread class
+public class ThreadOne extends Thread {
+
+    @Override
+    public void run() {
+        for (int i = 0; i < 100; i++) {
+            System.out.println("Thread One " + i);
+        }
+    }
+}
+
+// Creates thread by implementing Runnable interface
+public class ThreadTwoRunnable implements Runnable {
+
+    @Override
+    public void run() {
+        for (int i = 0; i < 100; i++) {
+            System.out.println("Thread Two " + i);
+        }
+    }
+}
+
+// New instance and run thread
+public class RunExercise {
+    public static void main(String[] args) {
+        System.out.println("Start Main");
+
+        // Thread One
+        ThreadOne threadOne = new ThreadOne();
+        threadOne.start();
+
+        // Thread Two
+        ThreadTwoRunnable threadTwoRunnable = new ThreadTwoRunnable();
+        Thread threadTwo = new Thread(threadTwoRunnable);
+        threadTwo.start();
+
+        System.out.println("End Main");
+    }
+}
+{% endhighlight %}

@@ -9,7 +9,7 @@ tags: [thread, multi-thread]
 > 1. Tại sao cần dùng thread, multi-thread?
 > 2. Ứng dụng của thread, multi-thread?
 > 3. Cách tạo thread
-> 4. Ưu điểm & nhược điểm trong đa luồng
+> 4. Ưu điểm & nhược điểm của đa luồng
 
 ### Tại sao cần dùng thread, multi-thread?
 Nói theo cách thông thường, chúng ta sử dụng java Thread bởi vì nó giúp ứng dụng chạy nhanh hơn bằng cách thực hiện nhiều công việc cùng lúc. Theo ngôn ngữ kỹ thuật, Thread giúp bạn đạt được tính song song trong các chương trình java.
@@ -82,7 +82,7 @@ public class RunExercise {
 
 Vì vậy tuỳ vào design có yêu cầu sử dụng đa thừa kế hay không mà chọn cách phù hợp.
 
-### Ưu điểm & nhược điểm trong đa luồng
+### Ưu điểm & nhược điểm của đa luồng
 
 * **Ưu điểm**:
     - Cải thiện performance của app phức tạp.

@@ -19,4 +19,6 @@ Các lý dó:
 
 * Tận dụng hết sức mạnh của CPU: Như đã nói ở trên, sử dụng multi-thread sẽ cải thiện được tốc độ của app bằng cách sử dụng toàn bộ sức mạnh của CPU. Giả sử ta có CPU 32 core, ta chỉ sử dụng 1 core để phục vụ 1000 client, ta sẽ cải thiện được tốc độ 32 lần nếu chúng ta dùng 32 thread.
 
-* Giảm response time: 
+* Giảm response time: Chúng ta có thể giảm response time khi sử dụng multi-thread bằng cách chia một vấn đề lớn thành các phần nhỏ hơn.
+
+* Để phục vụ nhiều client hơn tại một thời điểm: Đối với các ứng dụng client-server, nếu sử dụng signle-thread thì có nghĩa là chỉ có một client connect tới server tại một thời điểm, còn đối với mutil-thread, nhiều client có thể cùng lúc connect tới server, điều này có nghĩa là client tiếp theo không phải đợi server hoàn thành xử lý request của client trước.

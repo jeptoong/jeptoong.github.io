@@ -79,3 +79,18 @@ public class RunExercise {
 ***Khi nào thì dùng cách extend Thread, khi nào thì dùng cách Runnable?***
 
 Ở cách 1, khi class chúng ta extends Thread class, chúng ta không có cơ hội để extend bất kỳ class nào khác, do đó chúng ta sẽ không tận dụng được benefit của Inheritance. Ở cách 2, khi impelement Runnable interface chúng ta có thể extend thêm bất kỳ class nào khác, do đó ta tận dụng được benefit của Inheritance.
+
+Vì vậy tuỳ vào design có yêu cầu sử dụng đa thừa kế hay không mà chọn cách phù hợp.
+
+### Ưu điểm & nhược điểm trong đa luồng
+
+* **Ưu điểm**:
+    - Cải thiện performance của app phức tạp.
+    - Cải thiện khả năng phản hồi của giao diện người dùng.
+    - Được sử dụng ở server để cải thiện throughput và sử dụng resource.
+    - Parallelize các task.
+    - Tận dụng sức mạnh của CPU.
+
+* **Nhược điểm**:
+    - Tăng độ phức tạp coding, debuging, testing.
+    - Tăng khả năng xảy ra deadlock.

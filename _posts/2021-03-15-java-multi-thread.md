@@ -94,3 +94,8 @@ Vì vậy tuỳ vào design có yêu cầu sử dụng đa thừa kế hay khôn
 * **Nhược điểm**:
     - Tăng độ phức tạp coding, debuging, testing.
     - Tăng khả năng xảy ra deadlock.
+
+------
+
+* [Why we use Threads in Java?](https://javarevisited.blogspot.com/2017/03/why-we-use-threads-in-java.html#axzz6p8wehajw){:target="_blank"}
+* [Implement Runnable vs Extend Thread in Java](https://www.geeksforgeeks.org/implement-runnable-vs-extend-thread-in-java/){:target="_blank"}

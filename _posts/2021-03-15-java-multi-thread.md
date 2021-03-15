@@ -25,7 +25,7 @@ Các lý do:
 
 
 ### Ứng dụng của thread, multi-thread?
-Ngày nay hầu hết các ứng dụng điều sử dụng multi-thread. Ví dụ browser mở nhiều tab cùng lúc, mỗi tab lại hiển thị mỗi nội dung khác nhau, nhiều thread được sử dụng để load nội dung, display animation, play video, ... Hoặc như ứng dụng Word, multi-thread được sử dụng để hiển thị text, check spell và grammer.
+Ngày nay hầu hết các ứng dụng điều sử dụng multi-thread. Ví dụ browser mở nhiều tab cùng lúc, mỗi tab lại hiển thị mỗi nội dung khác nhau, nhiều thread được sử dụng để load nội dung, display animation, play video, ... Hoặc như ứng dụng Word, multi-thread được sử dụng để hiển thị text, đồng thời xử lý check spell, grammer.
 
 
 ### Cách tạo thread
@@ -35,6 +35,7 @@ Có 2 cách để tạo thread trong java:
 
 ***Ex:***
 {% highlight java linenos %}
+// ThreadOne.java
 // Creates thread by extending Thread class
 public class ThreadOne extends Thread {
 
@@ -46,6 +47,7 @@ public class ThreadOne extends Thread {
     }
 }
 
+// ThreadTwoRunnable.java
 // Creates thread by implementing Runnable interface
 public class ThreadTwoRunnable implements Runnable {
 
@@ -57,6 +59,7 @@ public class ThreadTwoRunnable implements Runnable {
     }
 }
 
+// RunExercise.java
 // New instance and run thread
 public class RunExercise {
     public static void main(String[] args) {
@@ -78,7 +81,7 @@ public class RunExercise {
 
 ***Khi nào thì dùng cách extend Thread, khi nào thì dùng cách Runnable?***
 
-Ở cách 1, khi class chúng ta extends Thread class, chúng ta không có cơ hội để extend bất kỳ class nào khác, do đó chúng ta sẽ không tận dụng được benefit của Inheritance. Ở cách 2, khi impelement Runnable interface chúng ta có thể extend thêm bất kỳ class nào khác, do đó ta tận dụng được benefit của Inheritance.
+Ở cách 1, khi extends Thread class, chúng ta không có cơ hội để extend bất kỳ class nào khác, do đó chúng ta sẽ không tận dụng được benefit của Inheritance. Ở cách 2, khi impelement Runnable interface chúng ta có thể extend thêm bất kỳ class khác, do đó ta tận dụng được benefit của Inheritance.
 
 Vì vậy tuỳ vào design có yêu cầu sử dụng đa thừa kế hay không mà chọn cách phù hợp.
 

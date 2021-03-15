@@ -81,9 +81,9 @@ public class RunExercise {
 
 ***Khi nào thì dùng cách extend Thread, khi nào thì dùng cách Runnable?***
 
-Ở cách 1, khi extends Thread class, chúng ta không có cơ hội để extend bất kỳ class nào khác, do đó chúng ta sẽ không tận dụng được benefit của Inheritance. Ở cách 2, khi impelement Runnable interface chúng ta có thể extend thêm bất kỳ class khác, do đó ta tận dụng được benefit của Inheritance.
+* Ở cách 1, khi extends Thread class, chúng ta không có cơ hội để extend bất kỳ class nào khác, do đó chúng ta sẽ không tận dụng được benefit của Inheritance. Ở cách 2, khi impelement Runnable interface chúng ta có thể extend thêm bất kỳ class khác, do đó ta tận dụng được benefit của Inheritance. Vì vậy tuỳ vào design có yêu cầu sử dụng đa thừa kế hay không mà chọn cách phù hợp.
 
-Vì vậy tuỳ vào design có yêu cầu sử dụng đa thừa kế hay không mà chọn cách phù hợp.
+* Khi chúng ta extend Thread class, mỗi luồng sẽ tạo ra một đối tượng duy nhất và liên kết với nó. Khi implement Runnable, các luồng cùng chia sẻ một đối tượng.
 
 ### Ưu điểm & nhược điểm của đa luồng
 

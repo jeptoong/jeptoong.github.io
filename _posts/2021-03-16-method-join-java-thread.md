@@ -5,7 +5,8 @@ categories: [java]
 tags: [thread, join, join-thread]
 ---
 
-**java.lang.Thread** class cung cấp method **join()**, nó cho phép một thread đợi cho đến khi một thread khác hoàn thành việc thực thi của mình. Khi chúng ta gọi method **join()** thì thread đang gọi sẽ chuyển sang trạng thái chờ, nó sẽ ở trạng thái chờ cho đến khi thead được gọi kết thúc thực thi.
+### Thread.join() method
+**java.lang.Thread** class cung cấp method **join()**, nó cho phép một thread đợi cho đến khi một thread khác hoàn thành việc thực thi của mình. Khi chúng ta gọi method **join()** thì thread đang gọi (calling thread) sẽ chuyển sang trạng thái chờ, nó sẽ ở trạng thái chờ cho đến khi thead được gọi (referenced thread) kết thúc thực thi.
 
 Ở ví dụ sau, ta có thread Main, thread One và thread Two, 3 thread này chạy song song với nhau, khi code chạy tới dòng `threadOne.join()` thì thead Main sẽ "gộp" với thread One, tức là thread Main sẽ đợi thread One hoàn thành thực thi mới thực thi tiếp các lệnh phía sau, trong khi đó thread Two vẫn chạy song song.
 
@@ -130,3 +131,12 @@ Thread-0 Value: 1
 Thread-1 Value: 0
 Thread-1 Value: 1
 {% endhighlight %}
+
+### Thread.join() method với timeout
+
+*Thread.join()* sẽ mãi ở trạng thái đợi khi reference thread bị block hay tốn nhiều thời gian để thực thi xong. Điều này có khả năng làm calling thread không phản hồi. Để giải quyết việc này, ta sử dụng overloaded version của method *Thread.join()* cho phép chỉ định thời gian timeout.
+
+Có hai version overload method join():
+
+* public final synchronized void join(long millis) throws InterruptedException
+* public final synchronized void join(long millis, int nanos) throws InterruptedException

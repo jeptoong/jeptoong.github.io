@@ -101,7 +101,7 @@ Vì vậy tuỳ vào design có yêu cầu sử dụng đa thừa kế hay khôn
     - Tăng khả năng xảy ra deadlock.
 
 ------
-* [Code](https://github.com/jeptoong/learn-thread){:target="_blank"}
+* [Code Example](https://github.com/jeptoong/learn-thread){:target="_blank"}
 * [Why we use Threads in Java?](https://javarevisited.blogspot.com/2017/03/why-we-use-threads-in-java.html#axzz6p8wehajw){:target="_blank"}
 * [Implement Runnable vs Extend Thread in Java](https://www.geeksforgeeks.org/implement-runnable-vs-extend-thread-in-java/){:target="_blank"}
 * [Extends Thread vs Implements Runnable](https://manikandanmv.wordpress.com/tag/extends-thread-vs-implements-runnable/){:target="_blank"}

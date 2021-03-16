@@ -52,7 +52,7 @@ public class RunExercise {
 {% endhighlight %}
 
 ***Kết quả***
-{% hightlight plaintext %}
+{% highlight plaintext linenos %}
 Main Start
 Thread Two 0
 Thread One 0

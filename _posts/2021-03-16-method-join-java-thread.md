@@ -17,12 +17,12 @@ public class ThreadOne extends Thread {
     @Override
     public void run() {
         for (int i = 0; i < 10; i++) {
-            System.out.println("Thread One " + i);
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            System.out.println(Thread.currentThread().getName() + " Value: " + i);
         }
     }
 }
@@ -33,12 +33,12 @@ public class ThreadTwo extends Thread{
     @Override
     public void run() {
         for (int i = 0; i < 10; i++) {
-            System.out.println("Thread Two " + i);
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
                 e.printStackTrace();
             }
+            System.out.println(Thread.currentThread().getName() + " Value: " + i);
         }
     }
 }
@@ -51,9 +51,11 @@ public class RunExercise {
         ThreadOne threadOne = new ThreadOne();
         ThreadTwo threadTwo = new ThreadTwo();
 
+        // Start thread One and Two
         threadOne.start();
         threadTwo.start();
 
+        // Thread main will wait for thread One to die
         threadOne.join();
 
         System.out.println("Main End");
@@ -64,25 +66,25 @@ public class RunExercise {
 ***Kết quả***
 {% highlight plaintext %}
 Main Start
-Thread One 0
-Thread Two 0
-Thread One 1
-Thread Two 1
-Thread One 2
-Thread One 3
-Thread Two 2
-Thread One 4
-Thread One 5
-Thread Two 3
-Thread One 6
-Thread One 7
-Thread Two 4
-Thread One 8
-Thread One 9
-Thread Two 5
+Thread-0 Value: 0
+Thread-1 Value: 0
+Thread-0 Value: 1
+Thread-0 Value: 2
+Thread-1 Value: 1
+Thread-0 Value: 3
+Thread-0 Value: 4
+Thread-1 Value: 2
+Thread-0 Value: 5
+Thread-0 Value: 6
+Thread-1 Value: 3
+Thread-0 Value: 7
+Thread-0 Value: 8
+Thread-1 Value: 4
+Thread-0 Value: 9
 Main End
-Thread Two 6
-Thread Two 7
-Thread Two 8
-Thread Two 9
+Thread-1 Value: 5
+Thread-1 Value: 6
+Thread-1 Value: 7
+Thread-1 Value: 8
+Thread-1 Value: 9
 {% endhighlight %}

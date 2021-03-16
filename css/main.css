@@ -843,6 +843,11 @@ td.code pre {
 td.gutter {
   padding-top: 3px;
 }
+pre code.language-plaintext {
+  display: block;
+  padding: 5px 15px;
+  background: #fff;
+}
 
 /* --- Social media sharing section --- */
 

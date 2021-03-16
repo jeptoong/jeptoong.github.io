@@ -47,6 +47,8 @@ blockquote {
   color: #808080;
   font-style: italic;
   font-size: 1rem;
+  border-color: {{ site.link-col }};
+  color: #008080;
 }
 blockquote p:first-child {
   margin-top: 0;

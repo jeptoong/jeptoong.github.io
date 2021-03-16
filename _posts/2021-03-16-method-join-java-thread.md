@@ -5,18 +5,24 @@ categories: [java]
 tags: [thread, join, join-thread]
 ---
 
-**java.lang.Thread** class cung cấp method **join()**, nó cho phép một thread đợi cho đến khi một thread khác hoàn thành việc thực thi của mình.
+**java.lang.Thread** class cung cấp method **join()**, nó cho phép một thread đợi cho đến khi một thread khác hoàn thành việc thực thi của mình. Khi chúng ta gọi method **join()** thì thread đang gọi sẽ chuyển sang trạng thái chờ, nó sẽ ở trạng thái chờ cho đến khi thead được gọi kết thúc thực thi.
 
-Ở ví dụ sau, ta có thread Main, thread One và thread Two, 3 thread này chạy song song với nhau, khi code chạy tới dòng `threadOne.join()` thì thead Main sẽ "gộp" với thread One, tức là thread Main sẽ đợi thread One thực thi xong mới chạy tiếp, trong khi đó thread Two vẫn chạy song song.
+Ở ví dụ sau, ta có thread Main, thread One và thread Two, 3 thread này chạy song song với nhau, khi code chạy tới dòng `threadOne.join()` thì thead Main sẽ "gộp" với thread One, tức là thread Main sẽ đợi thread One hoàn thành thực thi mới thực thi tiếp các lệnh phía sau, trong khi đó thread Two vẫn chạy song song.
 
 **Ex:**
 {% highlight java linenos %}
 // TheadOne.java
 public class ThreadOne extends Thread {
 
+    private int num;
+
+    public ThreadOne(int num) {
+        this.num = num;
+    }
+
     @Override
     public void run() {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < num; i++) {
             try {
                 Thread.sleep(1000);
             } catch (InterruptedException e) {
@@ -28,11 +34,17 @@ public class ThreadOne extends Thread {
 }
 
 // TheadTwo.java
-public class ThreadTwo extends Thread{
+public class ThreadTwo extends Thread {
+
+    private int num;
+
+    public ThreadTwo(int num) {
+        this.num = num;
+    }
 
     @Override
     public void run() {
-        for (int i = 0; i < 10; i++) {
+        for (int i = 0; i < num; i++) {
             try {
                 Thread.sleep(2000);
             } catch (InterruptedException e) {
@@ -48,8 +60,8 @@ public class RunExercise {
 
     public static void main(String[] args) throws InterruptedException {
         System.out.println("Main Start");
-        ThreadOne threadOne = new ThreadOne();
-        ThreadTwo threadTwo = new ThreadTwo();
+        ThreadOne threadOne = new ThreadOne(10);
+        ThreadTwo threadTwo = new ThreadTwo(10);
 
         // Start thread One and Two
         threadOne.start();
@@ -63,7 +75,7 @@ public class RunExercise {
 }
 {% endhighlight %}
 
-***Kết quả***
+***Kết quả:***
 {% highlight plaintext %}
 Main Start
 Thread-0 Value: 0
@@ -87,4 +99,34 @@ Thread-1 Value: 6
 Thread-1 Value: 7
 Thread-1 Value: 8
 Thread-1 Value: 9
+{% endhighlight %}
+
+Ở ví dụ tiếp theo, thread Two chỉ start sau khi thread One đã hoàn thành thực thi, do thread Two start sau lệnh `threadOne.join()`
+
+**Ex:**
+{% highlight java linenos %}
+public class RunExercise2 {
+
+    public static void main(String[] args) throws InterruptedException {
+        ThreadOne threadOne = new ThreadOne(2);
+        ThreadTwo threadTwo = new ThreadTwo(2);
+
+        // Start thread One
+        threadOne.start();
+
+        // Thread main wait for thread One to die
+        threadOne.join();
+
+        // Thread Two start after thread One has died
+        threadTwo.start();
+    }
+}
+{% endhighlight %}
+
+***Kết quả:***
+{% highlight plaintext %}
+Thread-0 Value: 0
+Thread-0 Value: 1
+Thread-1 Value: 0
+Thread-1 Value: 1
 {% endhighlight %}

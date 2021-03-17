@@ -9,7 +9,7 @@ Các thread có thể giao tiếp với nhau thông qua các method **wait()**, 
 
 **wait()** method làm cho thread vào trạng thái chờ cho đến khi được đánh thức bằng method **notify()** hay **notifyAll()**. method **notify()** chỉ đánh thức duy nhất một thread đang chờ, còn **notifyAll()** đánh thức tất cả các thread đang chờ
 
-* **Chú ý:** Các method wait, notify, notifyAll chỉ có thể được gọi trong synchronized
+**Chú ý:** Các method wait, notify, notifyAll chỉ có thể được gọi trong synchronized
 
 **Ex:**
 {% highlight java linenos %}

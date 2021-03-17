@@ -6,10 +6,14 @@ tags: [thread, multi-thread]
 ---
 
 > **Q:**
-> 1. Tại sao cần dùng thread, multi-thread?
-> 2. Ứng dụng của thread, multi-thread?
-> 3. Cách tạo thread
-> 4. Ưu điểm & nhược điểm của đa luồng
+> 1. Thread là gì?
+> 2. Tại sao cần dùng thread, multi-thread?
+> 3. Ứng dụng của thread, multi-thread?
+> 4. Cách tạo thread
+> 5. Ưu điểm & nhược điểm của đa luồng
+
+### Thread là gì?
+Thread về cơ bản là một tiến trình con (sub-process). Một đơn vị xử lý nhỏ nhất của máy tính có thể thực hiện một công việc riêng biệt.
 
 ### Tại sao cần dùng thread, multi-thread?
 Nói theo cách thông thường, chúng ta sử dụng java Thread bởi vì nó giúp ứng dụng chạy nhanh hơn bằng cách thực hiện nhiều công việc cùng lúc. Theo ngôn ngữ kỹ thuật, Thread giúp bạn đạt được tính song song trong các chương trình java.

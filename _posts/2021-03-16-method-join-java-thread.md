@@ -140,3 +140,44 @@ Có hai version overload method join():
 
 * public final synchronized void join(long millis) throws InterruptedException
 * public final synchronized void join(long millis, int nanos) throws InterruptedException
+
+**Ex:**
+
+{% highlight java linenos %}
+public class RunExercise3 {
+
+    public static void main(String[] args) throws InterruptedException {
+        System.out.println("Main Start");
+        ThreadOne threadOne = new ThreadOne(5);
+        ThreadTwo threadTwo = new ThreadTwo(5);
+
+        // Start thread One and Two
+        threadOne.start();
+        threadTwo.start();
+
+        // Thread main will wait for thread One to die in 4000 millis
+        threadOne.join(4000);
+
+        System.out.println("Main End");
+    }
+}
+{% endhighlight %}
+
+***Kết quả:***
+{% highlight plaintext %}
+Main Start
+Thread-0 Value: 0
+Thread-1 Value: 0
+Thread-0 Value: 1
+Thread-0 Value: 2
+Main End
+Thread-1 Value: 1
+Thread-0 Value: 3
+Thread-0 Value: 4
+Thread-1 Value: 2
+Thread-1 Value: 3
+Thread-1 Value: 4
+{% endhighlight %}
+
+------
+* [Code Example](https://github.com/jeptoong/learn-thread){:target="_blank"}

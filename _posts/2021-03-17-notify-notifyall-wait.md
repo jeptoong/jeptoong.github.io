@@ -158,3 +158,5 @@ public class RunTest2 {
 
 ------
 * [Code Example](https://github.com/jeptoong/learn-thread){:target="_blank"}
+* [Multithreading Java and Interviews Part 2: Mutex, the Java Monitor Model](https://dzone.com/articles/multithreading-java-and-interviewspart-2){:target="_blank"}
+* [Multithreading Java and Interviews Part 3: Wait and Notify All](https://dzone.com/articles/multithreading-java-and-interviews-part-2-wait-and){:target="_blank"}

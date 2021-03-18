@@ -11,75 +11,149 @@ Các thread có thể giao tiếp với nhau thông qua các method **wait()**, 
 
 **Chú ý:** Các method wait, notify, notifyAll chỉ có thể được gọi trong synchronized
 
-**Ex:**
+**Ex:** Dùng notify()
 {% highlight java linenos %}
-// Processor.java
-public class Processor {
+// ThreadSafeQueue.java
+public class ThreadSafeQueue {
 
-    private String value;
+    private final Queue<String> queue = new LinkedList<>();
+    private static final Object MUTEX = new Object();
 
-    public void produce() throws InterruptedException {
-        synchronized (this) {
-            System.out.println("Producer thread is running...");
-            wait();
-            System.out.println("The value user enter: " + value);
+    public void push(String value) throws InterruptedException {
+        synchronized (MUTEX) {
+            queue.add(value);
+            MUTEX.notify();
+            System.out.println("[" + Thread.currentThread().getName() + "] Release MUTEX ...");
         }
     }
 
-    public void consume() throws InterruptedException {
-        Scanner scanner = new Scanner(System.in);
-        synchronized (this) {
-            System.out.println("Consumer thread is running ...");
-            System.out.print("Please enter value: ");
-            value = scanner.next();
-            notify();
+    public String poll() throws InterruptedException {
+        synchronized (MUTEX) {
+            while (queue.isEmpty()) {
+                System.out.println("[" + Thread.currentThread().getName() + "] Release MUTEX ...");
+                MUTEX.wait();
+            }
         }
+        return queue.poll();
     }
 }
 
-// RunExercise.java
-public class RunExercise {
+// RunTest.java
+public class RunTest {
 
-    public static void main(String[] args) throws InterruptedException {
-        Processor processor = new Processor();
+    public static void main(String[] args) {
+        ThreadSafeQueue threadSafeQueue = new ThreadSafeQueue();
 
-        // Creates thread produce.
-        Thread threadOne = new Thread(new Runnable() {
+        (new Thread("Receiver") {
             @Override
             public void run() {
                 try {
-                    processor.produce();
+                    System.out.println("Value get from queue: " + threadSafeQueue.poll());
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
-        });
+        }).start();
 
-        // Creates thread consume
-        Thread threadTwo = new Thread(new Runnable() {
+        (new Thread("Sender") {
             @Override
             public void run() {
                 try {
-                    processor.consume();
+                    Thread.sleep(1000);
+                    threadSafeQueue.push("Hello from Hue");
                 } catch (InterruptedException e) {
                     e.printStackTrace();
                 }
             }
-        });
-
-        // Start threads
-        threadOne.start();
-        threadTwo.start();
+        }).start();
     }
 }
 {% endhighlight %}
 
 ***Kết quả:***
 {% highlight plaintext %}
-Producer thread is running...
-Consumer thread is running ...
-Please enter value: hello
-The value user enter: hello
+[Receiver] Release MUTEX ...
+[Sender] Release MUTEX ...
+Value get from queue: Hello from Hue
+{% endhighlight %}
+
+**Ex:** Dùng notifyAll()
+{% highlight java linenos %}
+// ThreadSafeQueue2.java
+public class ThreadSafeQueue2 {
+
+    private final Queue<String> queue = new LinkedList<>();
+    private static final Object MUTEX = new Object();
+
+    public void push(List<String> values) throws InterruptedException {
+        synchronized (MUTEX) {
+            queue.addAll(values);
+            MUTEX.notifyAll();
+            System.out.println("[" + Thread.currentThread().getName() + "] Release MUTEX ...");
+        }
+    }
+
+    public String poll() throws InterruptedException {
+        synchronized (MUTEX) {
+            while (queue.isEmpty()) {
+                System.out.println("[" + Thread.currentThread().getName() + "] Release MUTEX ...");
+                MUTEX.wait();
+            }
+        }
+        return queue.poll();
+    }
+}
+
+// RunTest2.java
+public class RunTest2 {
+
+    public static void main(String[] args) {
+        ThreadSafeQueue2 threadSafeQueue = new ThreadSafeQueue2();
+
+        (new Thread("Receiver 1") {
+            @Override
+            public void run() {
+                try {
+                    System.out.println("[" + Thread.currentThread().getName() + "] Value get from queue: " + threadSafeQueue.poll());
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+        (new Thread("Receiver 2") {
+            @Override
+            public void run() {
+                try {
+                    System.out.println("[" + Thread.currentThread().getName() + "] Value get from queue: " + threadSafeQueue.poll());
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+
+        (new Thread("Sender") {
+            @Override
+            public void run() {
+                try {
+                    Thread.sleep(1000);
+                    threadSafeQueue.push(Arrays.asList("Hello from Hue", "Welcome to Hue"));
+                } catch (InterruptedException e) {
+                    e.printStackTrace();
+                }
+            }
+        }).start();
+    }
+}
+{% endhighlight %}
+
+***Kết quả:***
+{% highlight plaintext %}
+[Receiver 1] Release MUTEX ...
+[Receiver 2] Release MUTEX ...
+[Sender] Release MUTEX ...
+[Receiver 2] Value get from queue: Hello from Hue
+[Receiver 1] Value get from queue: Welcome to Hue
 {% endhighlight %}
 
 ------
